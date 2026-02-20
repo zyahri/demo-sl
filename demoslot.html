@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Slot Pragmatic Play | Profesional Demo</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Saira:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #0f1115;
+            --bg-card: #181b21;
+            --accent: #facc15; /* Emas/Kuning Slot */
+            --accent-hover: #eab308;
+            --text-main: #ffffff;
+            --text-muted: #9ca3af;
+            --border-color: #2d3139;
+            --header-height: 70px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER --- */
+        header {
+            height: var(--header-height);
+            background: rgba(15, 17, 21, 0.95);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Adjusted for layout */
+            padding: 0 2rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .logo span { color: white; }
+
+        /* --- GAME CONTAINER --- */
+        .game-wrapper {
+            margin-top: var(--header-height);
+            width: 100%;
+            min-height: calc(100vh - var(--header-height));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-image: radial-gradient(circle at center, #1f232b 0%, #0f1115 70%);
+        }
+
+        .theater-stage {
+            width: 100%;
+            max-width: 1280px;
+            position: relative;
+            margin: 20px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            background: #000;
+            /* Aspek rasio responsif untuk game */
+            aspect-ratio: 16/9; 
+        }
+
+        /* Loading Spinner */
+        .loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border-color);
+            border-top: 4px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            z-index: 1;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            position: relative;
+            z-index: 2;
+            display: block;
+        }
+
+        /* --- CONTROLS BAR --- */
+        .control-bar {
+            width: 100%;
+            max-width: 1280px;
+            background: var(--bg-card);
+            padding: 1rem;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+            flex-wrap: wrap; /* Agar responsif */
+            gap: 15px;
+        }
+
+        .game-info-container {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .game-title h1 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 4px;
+            color: var(--text-main);
+        }
+        
+        .game-meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Styling Dropdown Pilihan Game Baru */
+        .game-selector-container {
+            margin-right: 20px;
+        }
+
+        select#gameSelect {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+            min-width: 200px;
+            transition: border 0.3s;
+        }
+
+        select#gameSelect:focus {
+            border-color: var(--accent);
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background: #232730;
+            border-color: var(--text-muted);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #000;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        /* --- SEO CONTENT AREA --- */
+        .content-area {
+            width: 100%;
+            max-width: 1000px;
+            padding: 0 1rem 4rem 1rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        
+        .content-area h2 {
+            color: var(--text-main);
+            margin-bottom: 1rem;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        /* Animasi */
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .theater-stage {
+                width: 100%;
+                margin: 0;
+                border-radius: 0;
+                /* Ubah rasio jadi lebih tinggi di HP */
+                height: 60vh; 
+                aspect-ratio: auto;
+            }
+            
+            .control-bar {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+                align-items: stretch;
+            }
+
+            .game-info-container { text-align: center; }
+            .game-selector-container { margin-right: 0; margin-bottom: 10px; }
+            select#gameSelect { width: 100%; }
+
+            .actions {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .btn { flex: 1; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">DEMO<span>SLOT</span>PRO</a>
+    </header>
+
+    <main class="game-wrapper">
+        
+        <div class="theater-stage" id="gameContainer">
+            <div class="loader"></div>
+            <iframe 
+                id="gameFrame"
+                src="https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?gameSymbol=vs20starlight&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobby_url=https%3A%2F%2Fwww.pragmaticplay.com%2Fen%2F&lang=ID&cur=IDR" 
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <div class="control-bar">
+            <div class="game-selector-container">
+                <select id="gameSelect" onchange="changeGame(this.value)">
+                    </select>
+            </div>
+
+            <div class="game-info-container">
+                <div class="game-title">
+                    <h1 id="displayTitle">Starlight Princess</h1>
+                    <div class="game-meta" id="displayMeta">Pragmatic Play • RTP 96.50% • High Volatility</div>
+                </div>
+            </div>
+            
+            <div class="actions">
+                <button class="btn btn-primary" onclick="reloadGame()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"></path><path d="M1 20v-6h6"></path><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                    Isi Ulang Saldo
+                </button>
+                
+                <button class="btn" onclick="toggleFullscreen()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+                    Full Screen
+                </button>
+            </div>
+        </div>
+
+        <section class="content-area">
+            <h2 id="descTitle">Tentang Slot Demo Starlight Princess</h2>
+            <p id="descText">Mainkan slot demo Starlight Princess secara gratis tanpa deposit. Game ini menawarkan fitur pengali (multiplier) hingga x500 dengan mekanisme pembayaran Pay Anywhere. Cocok untuk Anda yang ingin mencoba pola gacor sebelum bermain dengan uang asli.</p>
+        </section>
+
+    </main>
+
+    <script>
+        // --- 1. DATA BASE GAME (Format JSON JavaScript) ---
+        const gameDatabase = [
+            {id: "vs20starlight", name: "Starlight Princess", rtp: "96.50%", volatility: "High", desc: "Putri bintang dengan tongkat ajaib pengali kemenangan."},
+            {id: "vs20olympgate", name: "Gates of Olympus", rtp: "96.50%", volatility: "High", desc: "Sang Kakek Zeus menunggu dengan petir x500."},
+            {id: "vs20fruitsw", name: "Sweet Bonanza", rtp: "96.48%", volatility: "Medium", desc: "Dunia permen penuh warna dengan fitur tumbling reels."},
+            {id: "vs20sugarrush", name: "Sugar Rush", rtp: "96.50%", volatility: "High", desc: "Mesin slot grid 7x7 dengan multiplier spot yang lengket."},
+            {id: "vs20gatotkaca", name: "Gates of Gatot Kaca", rtp: "96.50%", volatility: "High", desc: "Pahlawan super Indonesia dengan kekuatan mitologi."},
+            {id: "vs5aztecgems", name: "Aztec Gems", rtp: "96.52%", volatility: "Medium", desc: "Slot klasik 3x3 dengan tema hutan Aztec dan win multiplier."},
+            {id: "vs40wildwest", name: "Wild West Gold", rtp: "96.51%", volatility: "High", desc: "Koboi barat liar dengan sticky wild di free spin."},
+            {id: "vs20bonanzag", name: "Bonanza Gold", rtp: "96.49%", volatility: "High", desc: "Tambang emas dengan dinamit yang meledak-ledak."},
+            {id: "vs20pyramid", name: "Pyramid Bonanza", rtp: "96.48%", volatility: "High", desc: "Misteri Mesir kuno dalam format bonanza yang seru."},
+            {id: "vs20sbxmas", name: "Sweet Bonanza Xmas", rtp: "96.48%", volatility: "Medium", desc: "Versi natal dari Sweet Bonanza dengan salju dingin."},
+            {id: "vs20olympx", name: "Gates of Olympus 1000", rtp: "96.50%", volatility: "Very High", desc: "Versi upgrade Zeus dengan potensi max win lebih besar."},
+            {id: "vs20starlightx", name: "Starlight Princess 1000", rtp: "96.50%", volatility: "Very High", desc: "Kekuatan putri ditingkatkan hingga x1000."},
+            {id: "vswaysdogs", name: "The Dog House Megaways", rtp: "96.55%", volatility: "High", desc: "Rumah anjing dengan ribuan cara untuk menang."},
+            {id: "vs20kraken2", name: "Release the Kraken 2", rtp: "96.03%", volatility: "High", desc: "Monster laut dalam kembali dengan fitur wild baru."},
+            {id: "vs10bbbonanza", name: "Big Bass Bonanza", rtp: "96.71%", volatility: "Medium-High", desc: "Mancing mania dengan ikan-ikan bayaran besar."}
+        ];
+
+        // --- 2. FUNGSI INISIALISASI (Jalankan saat load) ---
+        window.onload = function() {
+            const selectMenu = document.getElementById('gameSelect');
+            
+            // Loop data untuk mengisi dropdown
+            gameDatabase.forEach(game => {
+                const option = document.createElement("option");
+                option.value = game.id;
+                option.text = game.name;
+                selectMenu.appendChild(option);
+            });
+        };
+
+        // --- 3. FUNGSI GANTI GAME ---
+        function changeGame(gameId) {
+            // Cari data game berdasarkan ID
+            const selectedGame = gameDatabase.find(g => g.id === gameId);
+            
+            if (selectedGame) {
+                // Update Iframe URL
+                const baseUrl = "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?gameSymbol=";
+                const params = "&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobby_url=https%3A%2F%2Fwww.pragmaticplay.com%2Fen%2F&lang=ID&cur=IDR";
+                
+                // Set Src Baru dengan Loading effect manual
+                const iframe = document.getElementById('gameFrame');
+                iframe.src = "about:blank"; // Kosongkan sebentar
+                setTimeout(() => {
+                    iframe.src = baseUrl + selectedGame.id + params;
+                }, 100);
+
+                // Update Teks di Layar
+                document.getElementById('displayTitle').innerText = selectedGame.name;
+                document.getElementById('displayMeta').innerText = `Pragmatic Play • RTP ${selectedGame.rtp} • ${selectedGame.volatility} Volatility`;
+                document.getElementById('descTitle').innerText = `Tentang Slot Demo ${selectedGame.name}`;
+                document.getElementById('descText').innerText = `Mainkan slot demo ${selectedGame.name} secara gratis. Game ini memiliki RTP sebesar ${selectedGame.rtp} dengan tingkat volatilitas ${selectedGame.volatility}. ${selectedGame.desc}`;
+            }
+        }
+
+        // --- 4. FUNGSI UTILITAS (Reload & Fullscreen) ---
+        function reloadGame() {
+            var iframe = document.getElementById('gameFrame');
+            var currentSrc = iframe.src;
+            iframe.src = currentSrc; // Refresh iframe
+        }
+
+        function toggleFullscreen() {
+            var elem = document.getElementById("gameContainer");
+            if (!document.fullscreenElement) {
+                elem.requestFullscreen().catch(err => {
+                    alert(`Error attempting to enable full-screen mode: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+    </script>
+</body>
+</html>

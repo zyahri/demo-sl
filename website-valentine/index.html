@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day, My Love</title>
+    
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+
+    <meta property="og:title" content="Happy Valentine's Day, My Love">
+    <meta property="og:description" content="I have a special surprise for you. Click to open 💌">
+    <meta property="og:image" content="https://happyvalentine-phors.us/icon.svg">
+    <meta property="og:url" content="https://happyvalentine-phors.us">
+    <meta property="og:type" content="website">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff4d6d;
+            --bg: #0f0f13;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text: #fff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            overflow-y: hidden; /* Scroll dikunci sampai tombol ditekan */
+        }
+
+        /* --- Background Animation --- */
+        .hearts-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .heart {
+            position: absolute;
+            bottom: -100px;
+            color: var(--primary);
+            opacity: 0.6;
+            animation: floatUp linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- Welcome Overlay (Halaman Pembuka) --- */
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #0f0f13;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 1s ease;
+        }
+        .overlay-content {
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+        .open-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 20px;
+            box-shadow: 0 0 20px rgba(255, 77, 109, 0.5);
+            transition: transform 0.2s;
+        }
+        .open-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* --- Container --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- Hero Section --- */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0; /* Hidden initially */
+            transition: opacity 1s ease;
+        }
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 5rem;
+            color: var(--primary);
+            text-shadow: 0 0 20px rgba(255, 77, 109, 0.5);
+            margin-bottom: 20px;
+        }
+        .typing-effect {
+            font-size: 1.5rem;
+            border-right: 2px solid var(--primary);
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        .blink-cursor {
+            animation: blink .75s step-end infinite;
+        }
+        @keyframes blink { from, to { border-color: transparent } 50% { border-color: var(--primary) } }
+
+        /* --- Photo Gallery --- */
+        .gallery-section {
+            padding: 50px 0;
+            opacity: 0; /* Hidden initially */
+            transition: opacity 1s ease 0.5s;
+        }
+        .gallery-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+        .gallery-grid {
+            column-count: 3;
+            column-gap: 20px;
+        }
+        .photo-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            break-inside: avoid;
+            position: relative;
+            
+            /* Animasi Awal */
+            opacity: 0;
+            transform: translateY(50px);
+            transition: transform 0.5s ease, box-shadow 0.3s ease, opacity 0.8s ease-out;
+        }
+        
+        .photo-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .photo-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.3);
+        }
+        .photo-card img {
+            width: 100%;
+            display: block;
+            border-radius: 15px 15px 0 0;
+        }
+        .caption {
+            padding: 15px;
+            font-size: 0.95rem;
+            color: #eee;
+            text-align: center;
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        /* --- Audio Player Button --- */
+        .music-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 77, 109, 0.6);
+            z-index: 100;
+            animation: pulse 2s infinite;
+            display: none; /* Hidden until opened */
+        }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 3.5rem; }
+            .typing-effect { font-size: 1rem; }
+            .gallery-grid { column-count: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay" id="overlay">
+        <div class="overlay-content">
+            <h1 style="font-size: 3rem;">For You ❤️</h1>
+            <p>Tap to open</p>
+            <button class="open-btn" onclick="startExperience()">Open Invitation 💌</button>
+        </div>
+    </div>
+
+    <div class="hearts-bg" id="heartsBg"></div>
+
+    <audio id="bgMusic" loop>
+        <source src="musik.mp3" type="audio/mpeg">
+    </audio>
+    
+    <div class="music-btn" onclick="toggleMusic()">🎵</div>
+
+    <header id="mainHeader">
+        <div class="container">
+            <h1>Happy Valentine's</h1>
+            <div class="typing-effect blink-cursor" id="typingText"></div>
+        </div>
+        <p style="margin-top: 20px; opacity: 0.7;">Scroll down to see our memories ↓</p>
+    </header>
+
+    <section class="gallery-section" id="gallerySection">
+        <div class="container">
+            <h2 class="gallery-title">Our Journey</h2>
+            
+            <div class="gallery-grid">
+                <div class="photo-card">
+                    <img src="https://i.ibb.co/wrMqsMnV/photo-2026-02-14-14-58-32.jpg" alt="Memory 1"> 
+                    <div class="caption">"Every second with you is the most beautiful poem time has ever written."</div>
+                </div>
+
+                <div class="photo-card">
+                    <img src="https://i.ibb.co/7t9CyB5m/photo-2026-02-14-14-58-38.jpg" alt="Memory 2">
+                    <div class="caption">"Thank you for being the reason behind my smile every single day."</div>
+                </div>
+
+                <div class="photo-card">
+                    <img src="https://i.ibb.co/SWk4rK8/photo-2026-02-14-14-58-40.jpg" alt="Memory 3">
+                    <div class="caption">"The world feels so chaotic, but with you, I find my peace."</div>
+                </div>
+
+                <div class="photo-card">
+                    <img src="https://i.ibb.co/9mCwPhsb/photo-2026-02-14-14-58-36.jpg" alt="Memory 4">
+                    <div class="caption">"Loving you is my favorite adventure."</div>
+                </div>
+
+                <div class="photo-card">
+                    <img src="https://i.ibb.co/wnMzpB0/photo-2026-02-14-14-58-37.jpg" alt="Memory 5">
+                    <div class="caption">"We don't need to be perfect, we just need to be real together."</div>
+                </div>
+                
+                <div class="photo-card">
+                    <img src="https://i.ibb.co/jkVjsr65/photo-2026-02-14-14-58-39.jpg" alt="Memory 5">
+                    <div class="caption">"For today, tomorrow, and forever. I love you."</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container" style="text-align: center; padding-bottom: 100px; margin-top: 20px;">
+        <h2 style="font-family: 'Dancing Script', cursive; font-size: 3rem; color: var(--primary); margin-bottom: 20px;">
+            My Promise to You
+        </h2>
+        <p style="font-size: 1.1rem; line-height: 1.8; color: #ddd; max-width: 700px; margin: 0 auto;">
+            "Finding you was the beginning of my best days. I promise to hold your hand through every tomorrow, to cherish every smile, and to love you more with every heartbeat. You are my today and all of my tomorrows."
+        </p>
+    </div>
+
+    <script>
+        // 1. Setup Typing Effect
+        const text = "Thank you for being the best part of my life.";
+        const typingElement = document.getElementById('typingText');
+        let i = 0;
+
+        function typeWriter() {
+            if (i < text.length) {
+                typingElement.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+
+        // 2. Setup Floating Hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            
+            document.getElementById('heartsBg').appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+        setInterval(createHeart, 300);
+
+        // 3. Music Control & Start Experience
+        const music = document.getElementById('bgMusic');
+        const overlay = document.getElementById('overlay');
+        const header = document.getElementById('mainHeader');
+        const gallery = document.getElementById('gallerySection');
+        const musicBtn = document.querySelector('.music-btn');
+        let isPlaying = false;
+
+        function startExperience() {
+            // Hide Overlay
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                
+                // Show Content
+                document.body.style.overflowY = 'auto'; 
+                header.style.opacity = '1';
+                gallery.style.opacity = '1';
+                musicBtn.style.display = 'flex';
+
+                // Start Typing Effect
+                typeWriter();
+
+                // Play Music Logic
+                music.volume = 0.8; // Set volume 80%
+                
+                // Trik: Walaupun linknya download, browser akan 'streaming'
+                var playPromise = music.play();
+
+                if (playPromise !== undefined) {
+                    playPromise.then(_ => {
+                        isPlaying = true;
+                        console.log("Musik berhasil diputar!");
+                    })
+                    .catch(error => {
+                        console.log("Error memutar musik: " + error);
+                        // Fallback jika browser sangat ketat
+                        alert("Silakan tekan tombol musik 🎵 di pojok kanan bawah.");
+                    });
+                }
+
+            }, 800);
+        }
+
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                document.querySelector('.music-btn').innerHTML = '🔇';
+            } else {
+                music.play();
+                document.querySelector('.music-btn').innerHTML = '🎵';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // 4. Animation on Scroll
+        const observerOptions = {
+            threshold: 0.1 
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100); 
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.photo-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
