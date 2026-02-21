@@ -7,19 +7,32 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Saira:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --bg-dark: #0f1115;
-            --bg-card: #181b21;
-            --accent: #facc15; /* Emas/Kuning Slot */
-            --accent-hover: #eab308;
+            /* Warna Dasar Eksklusif */
+            --bg-base: #07080a;
+            --bg-card: rgba(18, 20, 26, 0.7);
+            
+            /* Palet Emas Mewah */
+            --gold-light: #fce29f;
+            --gold-primary: #e6b85c;
+            --gold-dark: #b3862d;
+            --gold-gradient: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
+            
+            /* Teks & Garis */
             --text-main: #ffffff;
             --text-muted: #9ca3af;
-            --border-color: #2d3139;
-            --header-height: 70px;
+            --border-color: rgba(230, 184, 92, 0.2);
+            --header-height: 76px;
         }
+
+        /* Custom Scrollbar Global */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-base); }
+        ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold-primary); }
 
         * {
             margin: 0;
@@ -29,75 +42,89 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark);
+            background-color: var(--bg-base);
+            background-image: radial-gradient(circle at 50% 0%, #17181f 0%, #07080a 70%);
             color: var(--text-main);
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        /* --- HEADER --- */
+        /* --- HEADER EKSKLUSIF --- */
         header {
             height: var(--header-height);
-            background: rgba(15, 17, 21, 0.95);
+            background: rgba(7, 8, 10, 0.85);
             border-bottom: 1px solid var(--border-color);
             display: flex;
             align-items: center;
-            justify-content: space-between; /* Adjusted for layout */
-            padding: 0 2rem;
+            justify-content: space-between;
+            padding: 0 3rem;
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 100;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
         }
 
         .logo {
             font-family: 'Rajdhani', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            color: var(--accent);
             text-decoration: none;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        .logo span { color: white; }
+        .logo span.demo { color: var(--text-main); }
+        .logo span.slot { color: var(--text-main); font-weight: 500; }
+        .logo span.pro {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(230, 184, 92, 0.4);
+        }
 
         /* --- GAME CONTAINER --- */
         .game-wrapper {
             margin-top: var(--header-height);
             width: 100%;
-            min-height: calc(100vh - var(--header-height));
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-image: radial-gradient(circle at center, #1f232b 0%, #0f1115 70%);
+            padding: 2rem 1rem;
         }
 
         .theater-stage {
             width: 100%;
-            max-width: 1280px;
+            max-width: 1100px;
             position: relative;
-            margin: 20px auto;
-            border-radius: 12px;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
             background: #000;
-            /* Aspek rasio responsif untuk game */
-            aspect-ratio: 16/9; 
+            aspect-ratio: 16/9;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8), 0 0 0 1px var(--border-color), 0 0 20px rgba(230, 184, 92, 0.15);
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* Loading Spinner */
+        .theater-stage:hover {
+            box-shadow: 0 0 60px rgba(0,0,0,0.9), 0 0 0 1px rgba(230, 184, 92, 0.4), 0 0 30px rgba(230, 184, 92, 0.25);
+        }
+
         .loader {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 40px;
-            height: 40px;
-            border: 4px solid var(--border-color);
-            border-top: 4px solid var(--accent);
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(230, 184, 92, 0.1);
+            border-top: 3px solid var(--gold-primary);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: spin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
             z-index: 1;
         }
 
@@ -108,158 +135,300 @@
             position: relative;
             z-index: 2;
             display: block;
+            border-radius: 16px;
         }
 
-        /* --- CONTROLS BAR --- */
+        /* --- CONTROL BAR --- */
         .control-bar {
             width: 100%;
-            max-width: 1280px;
+            max-width: 1100px;
             background: var(--bg-card);
-            padding: 1rem;
-            border-radius: 12px;
+            backdrop-filter: blur(16px);
+            padding: 1.2rem 2rem;
+            border-radius: 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
             border: 1px solid var(--border-color);
-            flex-wrap: wrap; /* Agar responsif */
-            gap: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+            flex-wrap: wrap;
+            gap: 20px;
+            position: relative; /* Ditambahkan agar z-index berfungsi */
+            z-index: 10; /* Menjamin dropdown berada di atas iframe */
         }
 
         .game-info-container {
             flex: 1;
             min-width: 250px;
+            border-left: 2px solid var(--border-color);
+            padding-left: 20px;
         }
 
         .game-title h1 {
             font-family: 'Rajdhani', sans-serif;
-            font-size: 1.5rem;
-            margin-bottom: 4px;
-            color: var(--text-main);
+            font-size: 1.8rem;
+            margin-bottom: 6px;
+            color: var(--gold-primary);
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
         
         .game-meta {
             font-size: 0.85rem;
             color: var(--text-muted);
-        }
-
-        /* Styling Dropdown Pilihan Game Baru */
-        .game-selector-container {
-            margin-right: 20px;
-        }
-
-        select#gameSelect {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            cursor: pointer;
-            outline: none;
-            min-width: 200px;
-            transition: border 0.3s;
-        }
-
-        select#gameSelect:focus {
-            border-color: var(--accent);
-        }
-
-        .actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn {
-            background: var(--bg-dark);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
+            font-weight: 500;
+            letter-spacing: 0.5px;
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: all 0.2s;
-            font-size: 0.9rem;
         }
+
+        .game-meta::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: var(--gold-primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--gold-primary);
+        }
+
+        /* --- CUSTOM DROPDOWN PREMIUM --- */
+        .game-selector-container {
+            position: relative;
+            min-width: 260px;
+            user-select: none;
+            z-index: 50;
+        }
+
+        .custom-select {
+            position: relative;
+            width: 100%;
+        }
+
+        .custom-select-trigger {
+            background: rgba(0, 0, 0, 0.4);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 12px 40px 12px 20px;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .custom-select-trigger:hover, .custom-select.open .custom-select-trigger {
+            border-color: var(--gold-primary);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5), 0 0 15px rgba(230, 184, 92, 0.15);
+        }
+
+        .custom-select-trigger::after {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23e6b85c%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E") no-repeat center;
+            background-size: contain;
+            position: absolute;
+            right: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .custom-select.open .custom-select-trigger::after {
+            transform: rotate(180deg);
+        }
+
+        .custom-options {
+            position: absolute;
+            /* UBAH DI SINI: Bottom diatur agar membuka ke atas, bukan top */
+            bottom: calc(100% + 8px); 
+            left: 0;
+            right: 0;
+            background: #101217;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            box-shadow: 0 -15px 40px rgba(0,0,0,0.9); /* Bayangan disesuaikan ke atas */
+            max-height: 350px;
+            overflow-y: auto;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px); /* Arah animasi disesuaikan dari bawah ke atas */
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .custom-select.open .custom-options {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .custom-option {
+            padding: 12px 20px;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            display: flex;
+            align-items: center;
+        }
+
+        .custom-option:last-child { border-bottom: none; }
+
+        .custom-option:hover, .custom-option.selected {
+            background: rgba(230, 184, 92, 0.15);
+            color: var(--gold-primary);
+            padding-left: 28px;
+            border-left: 3px solid var(--gold-primary);
+        }
+
+        /* Scrollbar khusus untuk dropdown */
+        .custom-options::-webkit-scrollbar { width: 6px; }
+        .custom-options::-webkit-scrollbar-track { background: #0b0c0f; border-radius: 10px; }
+        .custom-options::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 10px; }
+        .custom-options::-webkit-scrollbar-thumb:hover { background: var(--gold-primary); }
+
+        /* --- TOMBOL PREMIUM --- */
+        .actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.7rem 1.4rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .btn svg { transition: transform 0.3s ease; }
 
         .btn:hover {
-            background: #232730;
-            border-color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--gold-primary);
+            color: var(--gold-primary);
+            box-shadow: 0 0 15px rgba(230, 184, 92, 0.1);
         }
 
+        .btn:hover svg { transform: scale(1.1); }
+
         .btn-primary {
-            background: var(--accent);
+            background: var(--gold-gradient);
             color: #000;
             border: none;
+            box-shadow: 0 4px 15px rgba(230, 184, 92, 0.3);
         }
 
         .btn-primary:hover {
-            background: var(--accent-hover);
+            background: linear-gradient(135deg, #fff 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
+            color: #000;
+            box-shadow: 0 6px 25px rgba(230, 184, 92, 0.5);
+            transform: translateY(-2px);
         }
 
         /* --- SEO CONTENT AREA --- */
         .content-area {
             width: 100%;
-            max-width: 1000px;
-            padding: 0 1rem 4rem 1rem;
+            max-width: 1100px;
+            padding: 2rem;
+            background: rgba(18, 20, 26, 0.4);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.05);
             color: var(--text-muted);
-            line-height: 1.6;
+            line-height: 1.8;
+            margin-bottom: 2rem;
         }
         
         .content-area h2 {
             color: var(--text-main);
             margin-bottom: 1rem;
             font-family: 'Rajdhani', sans-serif;
+            font-size: 1.6rem;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        /* Animasi */
+        .content-area h2::before {
+            content: '';
+            display: block;
+            width: 4px;
+            height: 24px;
+            background: var(--gold-gradient);
+            border-radius: 2px;
+        }
+
+        .content-area p { font-size: 0.95rem; }
+
+        /* Animasi Loader */
         @keyframes spin {
             0% { transform: translate(-50%, -50%) rotate(0deg); }
             100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
         /* Mobile Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 860px) {
+            header { padding: 0 1.5rem; justify-content: center; }
+            .logo { font-size: 1.5rem; }
+            
             .theater-stage {
-                width: 100%;
-                margin: 0;
-                border-radius: 0;
-                /* Ubah rasio jadi lebih tinggi di HP */
-                height: 60vh; 
+                border-radius: 12px;
+                margin-top: 10px;
                 aspect-ratio: auto;
+                height: 65vh; 
             }
             
             .control-bar {
                 flex-direction: column;
-                gap: 15px;
+                gap: 20px;
+                padding: 1.5rem;
                 text-align: center;
-                border-radius: 0;
-                border-left: none;
-                border-right: none;
                 align-items: stretch;
             }
 
-            .game-info-container { text-align: center; }
-            .game-selector-container { margin-right: 0; margin-bottom: 10px; }
-            select#gameSelect { width: 100%; }
+            .game-info-container { 
+                border-left: none; 
+                padding-left: 0;
+                border-top: 1px solid var(--border-color);
+                border-bottom: 1px solid var(--border-color);
+                padding: 15px 0;
+            }
+            
+            .game-selector-container { min-width: 100%; }
 
             .actions {
                 width: 100%;
-                justify-content: center;
+                justify-content: space-between;
+                flex-direction: column;
             }
             
-            .btn { flex: 1; justify-content: center; }
+            .btn { justify-content: center; padding: 1rem; }
+            .content-area { padding: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="#" class="logo">DEMO<span>SLOT</span>PRO</a>
+        <a href="#" class="logo"><span class="demo">DEMO</span><span class="slot">SLOT</span><span class="pro">PRO</span></a>
     </header>
 
     <main class="game-wrapper">
@@ -275,15 +444,20 @@
 
         <div class="control-bar">
             <div class="game-selector-container">
-                <select id="gameSelect" onchange="changeGame(this.value)">
-                    </select>
+                <div class="custom-select" id="customSelect">
+                    <div class="custom-select-trigger" id="customSelectTrigger">
+                        <span id="customSelectLabel">Starlight Princess</span>
+                    </div>
+                    <div class="custom-options" id="customOptions">
+                        </div>
+                </div>
             </div>
 
             <div class="game-info-container">
                 <div class="game-title">
                     <h1 id="displayTitle">Starlight Princess</h1>
-                    <div class="game-meta" id="displayMeta">Pragmatic Play • RTP 96.50% • High Volatility</div>
                 </div>
+                <div class="game-meta" id="displayMeta">Pragmatic Play • RTP 96.50% • High Volatility</div>
             </div>
             
             <div class="actions">
@@ -308,7 +482,6 @@
 
     <script>
         // --- 1. DATA BASE GAME (Format JSON JavaScript) ---
-        // DAFTAR DIPERLUAS: Mencakup sebagian besar game populer & legendaris Pragmatic Play
         const gameDatabase = [
             {id: "vs20starlight", name: "Starlight Princess", rtp: "96.50%", volatility: "High", desc: "Putri bintang dengan tongkat ajaib pengali kemenangan."},
             {id: "vs20starlightx", name: "Starlight Princess 1000", rtp: "96.50%", volatility: "Very High", desc: "Kekuatan putri ditingkatkan hingga x1000."},
@@ -386,37 +559,71 @@
             {id: "vs10firestrike2", name: "Fire Strike 2", rtp: "96.50%", volatility: "Medium", desc: "Dapatkan simbol Fire Strike untuk jackpot uang tunai instan."}
         ];
 
-        // --- 2. FUNGSI INISIALISASI (Jalankan saat load) ---
+        // --- 2. INISIALISASI CUSTOM DROPDOWN & EVENT LISTENER ---
         window.onload = function() {
-            const selectMenu = document.getElementById('gameSelect');
+            const customSelect = document.getElementById('customSelect');
+            const customSelectTrigger = document.getElementById('customSelectTrigger');
+            const customSelectLabel = document.getElementById('customSelectLabel');
+            const customOptionsContainer = document.getElementById('customOptions');
             
-            // Loop data untuk mengisi dropdown
+            // Loop data untuk mengisi custom dropdown list
             gameDatabase.forEach(game => {
-                const option = document.createElement("option");
-                option.value = game.id;
-                option.text = game.name;
-                selectMenu.appendChild(option);
+                const optionDiv = document.createElement("div");
+                optionDiv.classList.add("custom-option");
+                optionDiv.dataset.value = game.id;
+                optionDiv.innerText = game.name;
+                
+                // Set default aktif pada Starlight Princess
+                if (game.id === "vs20starlight") {
+                    optionDiv.classList.add("selected");
+                    customSelectLabel.innerText = game.name;
+                }
+
+                // Event saat game dipilih
+                optionDiv.addEventListener("click", function() {
+                    // Hapus efek terpilih dari semua opsi
+                    document.querySelectorAll('.custom-option').forEach(opt => opt.classList.remove('selected'));
+                    // Tambahkan efek ke opsi yang diklik
+                    this.classList.add('selected');
+                    // Ganti teks pemicu (trigger)
+                    customSelectLabel.innerText = this.innerText;
+                    // Tutup dropdown
+                    customSelect.classList.remove('open');
+                    // Panggil fungsi ganti game
+                    changeGame(this.dataset.value);
+                });
+
+                customOptionsContainer.appendChild(optionDiv);
+            });
+
+            // Buka/Tutup dropdown ketika diklik
+            customSelectTrigger.addEventListener("click", function(e) {
+                e.stopPropagation();
+                customSelect.classList.toggle('open');
+            });
+
+            // Tutup dropdown otomatis ketika mengklik di luar area dropdown
+            document.addEventListener("click", function(e) {
+                if (!customSelect.contains(e.target)) {
+                    customSelect.classList.remove('open');
+                }
             });
         };
 
         // --- 3. FUNGSI GANTI GAME ---
         function changeGame(gameId) {
-            // Cari data game berdasarkan ID
             const selectedGame = gameDatabase.find(g => g.id === gameId);
             
             if (selectedGame) {
-                // Update Iframe URL
                 const baseUrl = "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?gameSymbol=";
                 const params = "&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobby_url=https%3A%2F%2Fwww.pragmaticplay.com%2Fen%2F&lang=ID&cur=IDR";
                 
-                // Set Src Baru dengan Loading effect manual
                 const iframe = document.getElementById('gameFrame');
-                iframe.src = "about:blank"; // Kosongkan sebentar
+                iframe.src = "about:blank"; 
                 setTimeout(() => {
                     iframe.src = baseUrl + selectedGame.id + params;
                 }, 100);
 
-                // Update Teks di Layar
                 document.getElementById('displayTitle').innerText = selectedGame.name;
                 document.getElementById('displayMeta').innerText = `Pragmatic Play • RTP ${selectedGame.rtp} • ${selectedGame.volatility} Volatility`;
                 document.getElementById('descTitle').innerText = `Tentang Slot Demo ${selectedGame.name}`;
@@ -424,11 +631,11 @@
             }
         }
 
-        // --- 4. FUNGSI UTILITAS (Reload & Fullscreen) ---
+        // --- 4. FUNGSI UTILITAS ---
         function reloadGame() {
             var iframe = document.getElementById('gameFrame');
             var currentSrc = iframe.src;
-            iframe.src = currentSrc; // Refresh iframe
+            iframe.src = currentSrc; 
         }
 
         function toggleFullscreen() {
