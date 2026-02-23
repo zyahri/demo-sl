@@ -1025,8 +1025,18 @@
             let selectedGame = isPragmatic ? gameDatabase.find(g => g.id === gameId) : pgSoftDatabase.find(g => g.id === gameId);
             let provider = isPragmatic ? "Pragmatic Play" : "PG Soft";
             
-            // Ambil mata uang yang dipilih dari dropdown baru
+            // Ambil mata uang yang dipilih dari dropdown
             let selectedCurrency = document.getElementById('currencySelect').value;
+            
+            // Logika Pemetaan Bahasa Berdasarkan Mata Uang
+            let langCode = 'en'; // Bahasa bawaan (Inggris)
+            if (selectedCurrency === 'IDR') {
+                langCode = 'id'; // Indonesia
+            } else if (selectedCurrency === 'THB') {
+                langCode = 'th'; // Thailand
+            } else if (selectedCurrency === 'MYR' || selectedCurrency === 'USD' || selectedCurrency === 'EUR') {
+                langCode = 'en'; // Inggris (Internasional)
+            }
             
             if (selectedGame) {
                 // Set Dropdown option
@@ -1036,15 +1046,15 @@
                 iframe.src = "about:blank"; 
                 
                 setTimeout(() => {
-                    // Cek Tautan Iframe Berdasarkan Provider dan inject Mata Uang (Currency)
+                    // Cek Tautan Iframe Berdasarkan Provider dan inject Mata Uang serta Bahasa otomatis
                     if (provider === "Pragmatic Play") {
                         const baseUrl = "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?gameSymbol=";
-                        // Parameter cur diubah dinamis sesuai dengan dropdown
-                        const params = `&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobby_url=https%3A%2F%2Fwww.pragmaticplay.com%2Fen%2F&lang=ID&cur=${selectedCurrency}`;
+                        // Parameter lang diubah otomatis berdasarkan mata uang
+                        const params = `&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobby_url=https%3A%2F%2Fwww.pragmaticplay.com%2Fen%2F&lang=${langCode.toUpperCase()}&cur=${selectedCurrency}`;
                         iframe.src = baseUrl + selectedGame.id + params;
                     } else if (provider === "PG Soft") {
-                        // PG Soft diinjeksi dengan parameter currency
-                        iframe.src = `https://m.pgsoft-games.com/play.html?game_id=${selectedGame.id}&lang=id&__refer=m.pgsoft-games.com&currency=${selectedCurrency}`;
+                        // PG Soft diinjeksi dengan parameter currency dan lang otomatis
+                        iframe.src = `https://m.pgsoft-games.com/play.html?game_id=${selectedGame.id}&lang=${langCode.toLowerCase()}&__refer=m.pgsoft-games.com&currency=${selectedCurrency}`;
                     }
                 }, 100);
 
