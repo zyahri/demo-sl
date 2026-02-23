@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Demo Slot Pragmatic Play | Profesional Demo</title>
+    
+    <meta name="referrer" content="no-referrer">
+    
+    <title>Demo Slot Pragmatic Play & PG Soft | Profesional Demo</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,27 +15,21 @@
     <style>
         :root {
             /* Warna Dasar Eksklusif */
-            --bg-base: #07080a;
-            --bg-card: rgba(18, 20, 26, 0.7);
-            
-            /* Palet Emas Mewah */
-            --gold-light: #fce29f;
-            --gold-primary: #e6b85c;
-            --gold-dark: #b3862d;
-            --gold-gradient: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
-            
-            /* Teks & Garis */
+            --bg-dark: #0f1115;
+            --bg-card: #181b21;
+            --accent: #facc15; /* Emas/Kuning Slot */
+            --accent-hover: #eab308;
             --text-main: #ffffff;
             --text-muted: #9ca3af;
-            --border-color: rgba(230, 184, 92, 0.2);
+            --border-color: #2d3139;
             --header-height: 76px;
         }
 
         /* Custom Scrollbar Global */
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-base); }
-        ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--gold-primary); }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
         * {
             margin: 0;
@@ -42,8 +39,7 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-base);
-            background-image: radial-gradient(circle at 50% 0%, #17181f 0%, #07080a 70%);
+            background-color: var(--bg-dark);
             color: var(--text-main);
             overflow-x: hidden;
             min-height: 100vh;
@@ -52,7 +48,7 @@
         /* --- HEADER EKSKLUSIF --- */
         header {
             height: var(--header-height);
-            background: rgba(7, 8, 10, 0.85);
+            background: rgba(15, 17, 21, 0.95);
             border-bottom: 1px solid var(--border-color);
             display: flex;
             align-items: center;
@@ -76,42 +72,360 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            cursor: pointer;
         }
 
         .logo span.demo { color: var(--text-main); }
         .logo span.slot { color: var(--text-main); font-weight: 500; }
         .logo span.pro {
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(230, 184, 92, 0.4);
+            color: var(--accent);
+            text-shadow: 0 0 20px rgba(250, 204, 21, 0.4);
         }
 
-        /* --- GAME CONTAINER --- */
+        /* --- LANDING VIEW --- */
+        #landingView {
+            margin-top: var(--header-height);
+            padding: 0 0 2rem 0; 
+            min-height: calc(100vh - var(--header-height));
+            background-image: radial-gradient(circle at top, #1f232b 0%, #0f1115 100%);
+            width: 100%;
+        }
+
+        /* --- HERO AUTO SLIDER (DIBUAT FULL LAYAR MENEMPEL KIRI-KANAN) --- */
+        .hero-slider-wrapper {
+            width: 100%; /* Full 100% layar */
+            max-width: 100%;
+            height: 500px;
+            margin: 0 auto 3rem auto; /* Jarak bawah 3rem agar tidak menempel ke card */
+            position: relative;
+            border-radius: 0; /* Border radius dihapus agar menempel ujung monitor */
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero-slides {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out, transform 3s ease;
+            background-size: cover;
+            background-position: center;
+            transform: scale(1.05);
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 2;
+        }
+
+        .hero-slide-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(15, 17, 21, 0.95) 0%, rgba(15, 17, 21, 0.4) 50%, transparent 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 4rem;
+        }
+
+        .hero-slide-title {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 3.5rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.8);
+            max-width: 600px;
+            line-height: 1.1;
+        }
+
+        .hero-slide-desc {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+
+        .hero-play-btn {
+            background: var(--accent);
+            color: #000;
+            padding: 14px 32px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+            width: fit-content;
+            box-shadow: 0 10px 25px rgba(250, 204, 21, 0.3);
+        }
+
+        .hero-play-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(250, 204, 21, 0.5);
+        }
+
+        /* --- CATALOG SECTION (DIBUAT FULL LAYAR KIRI-KANAN) --- */
+        .catalog-section {
+            width: 100%;
+            max-width: 100%; /* Menghapus batas lebar */
+            padding: 0 3rem; /* Sejajar dengan jarak padding Logo Header */
+            margin: 0 auto 3rem auto;
+        }
+
+        .catalog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .catalog-header h2 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.8rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .catalog-header h2::before {
+            content: '';
+            display: block;
+            width: 6px;
+            height: 24px;
+            background: var(--accent);
+            border-radius: 4px;
+        }
+
+        .view-all-btn {
+            background: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .view-all-btn:hover {
+            background: rgba(250, 204, 21, 0.1);
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* Container Drag & Grid Full Layar */
+        .cards-container {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding-bottom: 25px;
+            scroll-behavior: smooth;
+            cursor: grab;
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+        
+        .cards-container::-webkit-scrollbar { display: none; }
+        .cards-container.active { cursor: grabbing; }
+        
+        /* Grid dinamis yang memenuhi layar komputer */
+        .cards-container.grid-view {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Responsif memenuhi space monitor */
+            gap: 16px;
+            overflow-x: visible;
+        }
+
+        .game-card {
+            flex: 0 0 220px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .cards-container.grid-view .game-card {
+            flex: unset;
+            min-width: unset;
+            max-width: none;
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            border-color: var(--accent);
+        }
+
+        .game-card-thumb {
+            width: 100%;
+            aspect-ratio: 1/1; 
+            position: relative;
+            border-bottom: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .game-card-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+            background-color: var(--bg-dark);
+        }
+
+        .game-card:hover .game-card-thumb img {
+            transform: scale(1.1); 
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 17, 21, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 3;
+        }
+
+        .game-card:hover .play-overlay {
+            opacity: 1;
+        }
+
+        .play-btn {
+            background: var(--accent);
+            color: #000;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-family: 'Rajdhani', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 5px 15px rgba(250, 204, 21, 0.3);
+            transition: transform 0.2s;
+        }
+        
+        .play-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .game-card-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ef4444; 
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 4px;
+            z-index: 2;
+        }
+
+        .game-card-info {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .game-card-info h3 {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.15rem;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--text-main);
+        }
+
+        .game-card-info .provider-tag {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            background: rgba(255,255,255,0.05);
+            padding: 3px 10px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        /* --- GAME VIEW (RUANGAN BERMAIN) --- */
         .game-wrapper {
             margin-top: var(--header-height);
             width: 100%;
+            min-height: calc(100vh - var(--header-height));
             display: flex;
             flex-direction: column;
             align-items: center;
+            background-image: radial-gradient(circle at center, #1f232b 0%, #0f1115 70%);
             padding: 2rem 1rem;
+        }
+
+        .game-header-area {
+            width: 100%;
+            max-width: 1280px;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .btn-back {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-back:hover {
+            background: rgba(250, 204, 21, 0.1);
+            transform: translateX(-5px);
         }
 
         .theater-stage {
             width: 100%;
-            max-width: 1100px;
+            max-width: 1280px;
             position: relative;
-            border-radius: 16px;
+            margin: 0 auto 20px auto;
+            border-radius: 12px;
             overflow: hidden;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
             background: #000;
-            aspect-ratio: 16/9;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8), 0 0 0 1px var(--border-color), 0 0 20px rgba(230, 184, 92, 0.15);
-            margin-bottom: 2rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .theater-stage:hover {
-            box-shadow: 0 0 60px rgba(0,0,0,0.9), 0 0 0 1px rgba(230, 184, 92, 0.4), 0 0 30px rgba(230, 184, 92, 0.25);
+            aspect-ratio: 16/9; 
+            border: 1px solid var(--border-color);
         }
 
         .loader {
@@ -121,10 +435,10 @@
             transform: translate(-50%, -50%);
             width: 50px;
             height: 50px;
-            border: 3px solid rgba(230, 184, 92, 0.1);
-            border-top: 3px solid var(--gold-primary);
+            border: 4px solid var(--border-color);
+            border-top: 4px solid var(--accent);
             border-radius: 50%;
-            animation: spin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+            animation: spin 1s linear infinite;
             z-index: 1;
         }
 
@@ -135,27 +449,22 @@
             position: relative;
             z-index: 2;
             display: block;
-            border-radius: 16px;
         }
 
-        /* --- CONTROL BAR --- */
+        /* --- CONTROLS BAR --- */
         .control-bar {
             width: 100%;
-            max-width: 1100px;
+            max-width: 1280px;
             background: var(--bg-card);
-            backdrop-filter: blur(16px);
-            padding: 1.2rem 2rem;
-            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 3rem;
             border: 1px solid var(--border-color);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-            flex-wrap: wrap;
-            gap: 20px;
-            position: relative; /* Ditambahkan agar z-index berfungsi */
-            z-index: 10; /* Menjamin dropdown berada di atas iframe */
+            flex-wrap: wrap; 
+            gap: 15px;
         }
 
         .game-info-container {
@@ -169,7 +478,7 @@
             font-family: 'Rajdhani', sans-serif;
             font-size: 1.8rem;
             margin-bottom: 6px;
-            color: var(--gold-primary);
+            color: var(--accent);
             letter-spacing: 1px;
             text-transform: uppercase;
         }
@@ -178,7 +487,6 @@
             font-size: 0.85rem;
             color: var(--text-muted);
             font-weight: 500;
-            letter-spacing: 0.5px;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -189,171 +497,81 @@
             display: inline-block;
             width: 6px;
             height: 6px;
-            background: var(--gold-primary);
+            background: var(--accent);
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--gold-primary);
         }
 
-        /* --- CUSTOM DROPDOWN PREMIUM --- */
         .game-selector-container {
             position: relative;
-            min-width: 260px;
-            user-select: none;
-            z-index: 50;
+            min-width: 250px;
         }
 
-        .custom-select {
-            position: relative;
+        select#gameSelect {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
             width: 100%;
+            transition: border 0.3s;
         }
 
-        .custom-select-trigger {
-            background: rgba(0, 0, 0, 0.4);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            padding: 12px 40px 12px 20px;
-            border-radius: 10px;
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
-            font-size: 0.95rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+        select#gameSelect:focus {
+            border-color: var(--accent);
         }
 
-        .custom-select-trigger:hover, .custom-select.open .custom-select-trigger {
-            border-color: var(--gold-primary);
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5), 0 0 15px rgba(230, 184, 92, 0.15);
-        }
-
-        .custom-select-trigger::after {
-            content: '';
-            width: 12px;
-            height: 12px;
-            background: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23e6b85c%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E") no-repeat center;
-            background-size: contain;
-            position: absolute;
-            right: 15px;
-            transition: transform 0.3s ease;
-        }
-
-        .custom-select.open .custom-select-trigger::after {
-            transform: rotate(180deg);
-        }
-
-        .custom-options {
-            position: absolute;
-            /* UBAH DI SINI: Bottom diatur agar membuka ke atas, bukan top */
-            bottom: calc(100% + 8px); 
-            left: 0;
-            right: 0;
-            background: #101217;
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            box-shadow: 0 -15px 40px rgba(0,0,0,0.9); /* Bayangan disesuaikan ke atas */
-            max-height: 350px;
-            overflow-y: auto;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(10px); /* Arah animasi disesuaikan dari bawah ke atas */
-            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-
-        .custom-select.open .custom-options {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .custom-option {
-            padding: 12px 20px;
-            color: var(--text-main);
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-            display: flex;
-            align-items: center;
-        }
-
-        .custom-option:last-child { border-bottom: none; }
-
-        .custom-option:hover, .custom-option.selected {
-            background: rgba(230, 184, 92, 0.15);
-            color: var(--gold-primary);
-            padding-left: 28px;
-            border-left: 3px solid var(--gold-primary);
-        }
-
-        /* Scrollbar khusus untuk dropdown */
-        .custom-options::-webkit-scrollbar { width: 6px; }
-        .custom-options::-webkit-scrollbar-track { background: #0b0c0f; border-radius: 10px; }
-        .custom-options::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 10px; }
-        .custom-options::-webkit-scrollbar-thumb:hover { background: var(--gold-primary); }
-
-        /* --- TOMBOL PREMIUM --- */
         .actions {
             display: flex;
             gap: 12px;
         }
 
         .btn {
-            background: rgba(255, 255, 255, 0.03);
+            background: var(--bg-dark);
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            padding: 0.7rem 1.4rem;
-            border-radius: 10px;
+            padding: 0.8rem 1.4rem;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
             font-family: 'Inter', sans-serif;
             display: flex;
             align-items: center;
             gap: 10px;
-            transition: all 0.3s ease;
+            transition: all 0.2s;
             font-size: 0.9rem;
-            letter-spacing: 0.5px;
         }
-
-        .btn svg { transition: transform 0.3s ease; }
 
         .btn:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--gold-primary);
-            color: var(--gold-primary);
-            box-shadow: 0 0 15px rgba(230, 184, 92, 0.1);
+            background: #232730;
+            border-color: var(--text-muted);
         }
 
-        .btn:hover svg { transform: scale(1.1); }
-
         .btn-primary {
-            background: var(--gold-gradient);
+            background: var(--accent);
             color: #000;
             border: none;
-            box-shadow: 0 4px 15px rgba(230, 184, 92, 0.3);
         }
 
         .btn-primary:hover {
-            background: linear-gradient(135deg, #fff 0%, var(--gold-primary) 50%, var(--gold-dark) 100%);
-            color: #000;
-            box-shadow: 0 6px 25px rgba(230, 184, 92, 0.5);
-            transform: translateY(-2px);
+            background: var(--accent-hover);
         }
 
         /* --- SEO CONTENT AREA --- */
         .content-area {
             width: 100%;
-            max-width: 1100px;
-            padding: 2rem;
-            background: rgba(18, 20, 26, 0.4);
-            border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.05);
+            max-width: 1280px;
+            padding: 2.5rem;
+            background: rgba(24, 27, 33, 0.4);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
             color: var(--text-muted);
             line-height: 1.8;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
         }
         
         .content-area h2 {
@@ -361,7 +579,6 @@
             margin-bottom: 1rem;
             font-family: 'Rajdhani', sans-serif;
             font-size: 1.6rem;
-            letter-spacing: 0.5px;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -372,13 +589,10 @@
             display: block;
             width: 4px;
             height: 24px;
-            background: var(--gold-gradient);
+            background: var(--accent);
             border-radius: 2px;
         }
 
-        .content-area p { font-size: 0.95rem; }
-
-        /* Animasi Loader */
         @keyframes spin {
             0% { transform: translate(-50%, -50%) rotate(0deg); }
             100% { transform: translate(-50%, -50%) rotate(360deg); }
@@ -386,15 +600,18 @@
 
         /* Mobile Responsive */
         @media (max-width: 860px) {
-            header { padding: 0 1.5rem; justify-content: center; }
+            header { padding: 0 1.5rem; }
             .logo { font-size: 1.5rem; }
             
-            .theater-stage {
-                border-radius: 12px;
-                margin-top: 10px;
-                aspect-ratio: auto;
-                height: 65vh; 
-            }
+            .hero-slider-wrapper { height: 300px; width: 100%; margin-bottom: 2rem;}
+            .hero-slide-overlay { padding: 0 2rem; background: rgba(15, 17, 21, 0.7); }
+            .hero-slide-title { font-size: 2rem; }
+            .hero-slide-desc { font-size: 0.95rem; }
+
+            .catalog-section { padding: 0 1.5rem; }
+            .cards-container.grid-view { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+            
+            .theater-stage { border-radius: 0; height: 60vh; aspect-ratio: auto; }
             
             .control-bar {
                 flex-direction: column;
@@ -412,15 +629,10 @@
                 padding: 15px 0;
             }
             
-            .game-selector-container { min-width: 100%; }
+            .game-selector-container { margin-right: 0; }
 
-            .actions {
-                width: 100%;
-                justify-content: space-between;
-                flex-direction: column;
-            }
-            
-            .btn { justify-content: center; padding: 1rem; }
+            .actions { width: 100%; justify-content: space-between; flex-direction: column; }
+            .btn { justify-content: center; }
             .content-area { padding: 1.5rem; }
         }
     </style>
@@ -428,36 +640,52 @@
 <body>
 
     <header>
-        <a href="#" class="logo"><span class="demo">DEMO</span><span class="slot">SLOT</span><span class="pro">PRO</span></a>
+        <a class="logo" onclick="showLanding();"><span class="demo">DEMO</span><span class="slot">SLOT</span><span class="pro">PRO</span></a>
     </header>
 
-    <main class="game-wrapper">
+    <section id="landingView" style="display: block;">
         
+        <div class="hero-slider-wrapper" id="heroSlider">
+            <div class="hero-slides" id="slideContainer">
+                </div>
+        </div>
+
+        <section class="catalog-section">
+            <div class="catalog-header">
+                <h2>All Demo Games</h2>
+                <button class="view-all-btn" id="viewAllBtn">View All Games</button>
+            </div>
+            
+            <div class="cards-container" id="cardsContainer">
+                </div>
+        </section>
+    </section>
+
+    <main class="game-wrapper" id="gameView" style="display: none;">
+        
+        <div class="game-header-area">
+            <button class="btn-back" onclick="showLanding()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Kembali ke Daftar Game
+            </button>
+        </div>
+
         <div class="theater-stage" id="gameContainer">
             <div class="loader"></div>
-            <iframe 
-                id="gameFrame"
-                src="https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?gameSymbol=vs20starlight&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobby_url=https%3A%2F%2Fwww.pragmaticplay.com%2Fen%2F&lang=ID&cur=IDR" 
-                allowfullscreen>
-            </iframe>
+            <iframe id="gameFrame" src="about:blank" allowfullscreen></iframe>
         </div>
 
         <div class="control-bar">
             <div class="game-selector-container">
-                <div class="custom-select" id="customSelect">
-                    <div class="custom-select-trigger" id="customSelectTrigger">
-                        <span id="customSelectLabel">Starlight Princess</span>
-                    </div>
-                    <div class="custom-options" id="customOptions">
-                        </div>
-                </div>
+                <select id="gameSelect" onchange="changeGame(this.value)">
+                    </select>
             </div>
 
             <div class="game-info-container">
                 <div class="game-title">
-                    <h1 id="displayTitle">Starlight Princess</h1>
+                    <h1 id="displayTitle">Game Title</h1>
                 </div>
-                <div class="game-meta" id="displayMeta">Pragmatic Play • RTP 96.50% • High Volatility</div>
+                <div class="game-meta" id="displayMeta">Provider • RTP • Volatility</div>
             </div>
             
             <div class="actions">
@@ -474,14 +702,14 @@
         </div>
 
         <section class="content-area">
-            <h2 id="descTitle">Tentang Slot Demo Starlight Princess</h2>
-            <p id="descText">Mainkan slot demo Starlight Princess secara gratis tanpa deposit. Game ini menawarkan fitur pengali (multiplier) hingga x500 dengan mekanisme pembayaran Pay Anywhere. Cocok untuk Anda yang ingin mencoba pola gacor sebelum bermain dengan uang asli.</p>
+            <h2 id="descTitle">Tentang Slot Demo</h2>
+            <p id="descText">Mainkan slot demo secara gratis tanpa deposit. Game ini menawarkan fitur menarik. Cocok untuk Anda yang ingin mencoba pola gacor sebelum bermain dengan uang asli.</p>
         </section>
 
     </main>
 
     <script>
-        // --- 1. DATA BASE GAME (Format JSON JavaScript) ---
+        // --- 1. DATA BASE GAME PRAGMATIC PLAY ---
         const gameDatabase = [
             {id: "vs20starlight", name: "Starlight Princess", rtp: "96.50%", volatility: "High", desc: "Putri bintang dengan tongkat ajaib pengali kemenangan."},
             {id: "vs20starlightx", name: "Starlight Princess 1000", rtp: "96.50%", volatility: "Very High", desc: "Kekuatan putri ditingkatkan hingga x1000."},
@@ -559,79 +787,236 @@
             {id: "vs10firestrike2", name: "Fire Strike 2", rtp: "96.50%", volatility: "Medium", desc: "Dapatkan simbol Fire Strike untuk jackpot uang tunai instan."}
         ];
 
-        // --- 2. INISIALISASI CUSTOM DROPDOWN & EVENT LISTENER ---
+        // --- 2. DATA BASE GAME PG SOFT ---
+        const pgSoftDatabase = [
+            {id: "98", name: "Mahjong Ways 2", rtp: "96.95%", volatility: "Medium", desc: "Permainan mahjong klasik dengan fitur transformasi simbol liar dan pengali."},
+            {id: "126", name: "Mahjong Ways", rtp: "96.92%", volatility: "Medium", desc: "Slot video 5 gulungan, 4 baris yang menampilkan transformasi simbol liar."},
+            {id: "87", name: "Treasures of Aztec", rtp: "96.71%", volatility: "Medium", desc: "Jelajahi piramida Aztec untuk menemukan harta karun tersembunyi dengan pengali bertambah."},
+            {id: "89", name: "Lucky Neko", rtp: "96.73%", volatility: "Medium", desc: "Kucing keberuntungan membawa rejeki dengan simbol raksasa dan putaran gratis."},
+            {id: "68", name: "Leprechaun Riches", rtp: "97.35%", volatility: "Medium", desc: "Cari emas di ujung pelangi bersama Leprechaun di slot 6 gulungan ini."},
+            {id: "112", name: "Wild Bandito", rtp: "96.73%", volatility: "Medium", desc: "Bandit Meksiko liar yang siap memberikan kemenangan lewat putaran gratis dan pengali yang terus meningkat."},
+            {id: "106", name: "Dreams of Macau", rtp: "96.71%", volatility: "Medium", desc: "Rasakan gemerlap kota kasino dengan putaran gratis dan Sticky Wilds yang menguntungkan."}
+        ];
+
+        // Gabungkan semua database
+        const allGamesDatabase = [...gameDatabase, ...pgSoftDatabase];
+        
+        // Game Andalan Untuk Hero Slider
+        const heroFeaturedGames = [
+            gameDatabase[0], // Starlight Princess
+            gameDatabase[1], // Gates of Olympus
+            gameDatabase[2], // Sweet Bonanza
+            pgSoftDatabase[0] // Mahjong Ways 2
+        ];
+
+        let isShowingAll = false;
+        let currentSlide = 0;
+        const cardsContainer = document.getElementById('cardsContainer');
+        const viewAllBtn = document.getElementById('viewAllBtn');
+
+        // --- 3. INISIALISASI HALAMAN ---
         window.onload = function() {
-            const customSelect = document.getElementById('customSelect');
-            const customSelectTrigger = document.getElementById('customSelectTrigger');
-            const customSelectLabel = document.getElementById('customSelectLabel');
-            const customOptionsContainer = document.getElementById('customOptions');
+            const selectMenu = document.getElementById('gameSelect');
             
-            // Loop data untuk mengisi custom dropdown list
-            gameDatabase.forEach(game => {
-                const optionDiv = document.createElement("div");
-                optionDiv.classList.add("custom-option");
-                optionDiv.dataset.value = game.id;
-                optionDiv.innerText = game.name;
+            // Render list untuk Dropdown Pilihan Game di Game View
+            allGamesDatabase.forEach(game => {
+                const isPragmatic = gameDatabase.some(g => g.id === game.id);
+                const providerName = isPragmatic ? "Pragmatic Play" : "PG Soft";
                 
-                // Set default aktif pada Starlight Princess
-                if (game.id === "vs20starlight") {
-                    optionDiv.classList.add("selected");
-                    customSelectLabel.innerText = game.name;
-                }
-
-                // Event saat game dipilih
-                optionDiv.addEventListener("click", function() {
-                    // Hapus efek terpilih dari semua opsi
-                    document.querySelectorAll('.custom-option').forEach(opt => opt.classList.remove('selected'));
-                    // Tambahkan efek ke opsi yang diklik
-                    this.classList.add('selected');
-                    // Ganti teks pemicu (trigger)
-                    customSelectLabel.innerText = this.innerText;
-                    // Tutup dropdown
-                    customSelect.classList.remove('open');
-                    // Panggil fungsi ganti game
-                    changeGame(this.dataset.value);
-                });
-
-                customOptionsContainer.appendChild(optionDiv);
+                const option = document.createElement("option");
+                option.value = game.id;
+                option.text = `${game.name} (${providerName})`;
+                selectMenu.appendChild(option);
             });
 
-            // Buka/Tutup dropdown ketika diklik
-            customSelectTrigger.addEventListener("click", function(e) {
-                e.stopPropagation();
-                customSelect.classList.toggle('open');
-            });
-
-            // Tutup dropdown otomatis ketika mengklik di luar area dropdown
-            document.addEventListener("click", function(e) {
-                if (!customSelect.contains(e.target)) {
-                    customSelect.classList.remove('open');
-                }
-            });
+            // Jalankan Slider dan Katalog
+            initHeroSlider();
+            renderCatalog(10); // Menampilkan 10 Card awal
+            initDragToScroll();
         };
 
-        // --- 3. FUNGSI GANTI GAME ---
+        // --- 4. FUNGSI HERO SLIDER (BANNER ATAS FULL LAYAR) ---
+        function initHeroSlider() {
+            const slideContainer = document.getElementById('slideContainer');
+            
+            heroFeaturedGames.forEach((game, index) => {
+                const isPragmatic = gameDatabase.some(g => g.id === game.id);
+                const providerName = isPragmatic ? "Pragmatic Play" : "PG Soft";
+                
+                // Cari wallpaper HD menggunakan Bing Proxy
+                const searchQuery = providerName + " " + game.name + " slot wallpaper HD";
+                const proxyUrl = "https://tse2.mm.bing.net/th?q=" + encodeURIComponent(searchQuery) + "&w=1920&h=600&c=7&rs=1&p=0&dpr=1&pid=1.7";
+                
+                const slide = document.createElement('div');
+                slide.className = `hero-slide ${index === 0 ? 'active' : ''}`;
+                slide.style.backgroundImage = `url('${proxyUrl}')`;
+                
+                slide.innerHTML = `
+                    <div class="hero-slide-overlay">
+                        <span class="game-card-badge" style="position:relative; top:0; left:0; width:fit-content; margin-bottom:15px; font-size:14px; padding:6px 12px;">Hot Game 🔥</span>
+                        <h2 class="hero-slide-title">${game.name}</h2>
+                        <p class="hero-slide-desc">${game.desc}</p>
+                        <button class="hero-play-btn" onclick="changeGame('${game.id}')">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                            Play Demo
+                        </button>
+                    </div>
+                `;
+                slideContainer.appendChild(slide);
+            });
+
+            // Logika Auto-Slide setiap 5 detik
+            setInterval(() => {
+                const slides = document.querySelectorAll('.hero-slide');
+                if(slides.length === 0) return;
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }, 5000);
+        }
+
+        // --- 5. FUNGSI RENDER KATALOG CARD (BING PROXY & OVERLAY) ---
+        function renderCatalog(limit) {
+            cardsContainer.innerHTML = '';
+            const gamesToRender = allGamesDatabase.slice(0, limit);
+
+            gamesToRender.forEach(game => {
+                const card = document.createElement('div');
+                card.className = 'game-card';
+                
+                const isPragmatic = gameDatabase.some(g => g.id === game.id);
+                const providerName = isPragmatic ? "Pragmatic Play" : "PG Soft";
+                
+                // Trik Proxy Bing Anda
+                const searchQuery = providerName + " " + game.name + " slot";
+                const proxyUrl = "https://tse2.mm.bing.net/th?q=" + encodeURIComponent(searchQuery) + "&w=400&h=400&c=7&rs=1&p=0&dpr=1&pid=1.7";
+                const fallbackUrl = `https://placehold.co/400x400/181b21/facc15?font=Montserrat&text=${encodeURIComponent(game.name)}`;
+                
+                card.innerHTML = `
+                    <div class="game-card-thumb">
+                        <img src="${proxyUrl}" alt="${game.name}" onerror="this.onerror=null; this.src='${fallbackUrl}';">
+                        <div class="game-card-badge">18+</div>
+                        
+                        <div class="play-overlay">
+                            <div class="play-btn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                                Play Demo
+                            </div>
+                        </div>
+                    </div>
+                    <div class="game-card-info">
+                        <h3>${game.name}</h3>
+                        <div class="game-card-tags">
+                            <span class="provider-tag">${providerName}</span>
+                        </div>
+                    </div>
+                `;
+
+                // Event masuk mode game
+                card.addEventListener('click', () => {
+                    changeGame(game.id);
+                });
+
+                cardsContainer.appendChild(card);
+            });
+        }
+
+        // Logic View All memecah slider menjadi Grid CSS Full Screen
+        viewAllBtn.addEventListener('click', () => {
+            if (!isShowingAll) {
+                renderCatalog(allGamesDatabase.length); 
+                cardsContainer.classList.add('grid-view'); 
+                viewAllBtn.innerText = "Show Less Games";
+            } else {
+                renderCatalog(10); 
+                cardsContainer.classList.remove('grid-view'); 
+                viewAllBtn.innerText = "View All Games";
+                document.querySelector('.catalog-section').scrollIntoView({ behavior: 'smooth' });
+            }
+            isShowingAll = !isShowingAll;
+        });
+
+        // --- 6. FUNGSI DRAG TO SCROLL (Khusus Saat Tidak Grid View) ---
+        function initDragToScroll() {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            cardsContainer.addEventListener('mousedown', (e) => {
+                if(cardsContainer.classList.contains('grid-view')) return; 
+                isDown = true;
+                cardsContainer.classList.add('active');
+                startX = e.pageX - cardsContainer.offsetLeft;
+                scrollLeft = cardsContainer.scrollLeft;
+            });
+            
+            cardsContainer.addEventListener('mouseleave', () => {
+                isDown = false;
+                cardsContainer.classList.remove('active');
+            });
+            
+            cardsContainer.addEventListener('mouseup', () => {
+                isDown = false;
+                cardsContainer.classList.remove('active');
+            });
+            
+            cardsContainer.addEventListener('mousemove', (e) => {
+                if (!isDown || cardsContainer.classList.contains('grid-view')) return;
+                e.preventDefault();
+                const x = e.pageX - cardsContainer.offsetLeft;
+                const walk = (x - startX) * 2; 
+                cardsContainer.scrollLeft = scrollLeft - walk;
+            });
+        }
+
+        // --- 7. FUNGSI MEMULAI GAME (MASUK RUANGAN) ---
         function changeGame(gameId) {
-            const selectedGame = gameDatabase.find(g => g.id === gameId);
+            // Sembunyikan Landing, Tampilkan Area Game
+            document.getElementById('landingView').style.display = 'none';
+            document.getElementById('gameView').style.display = 'flex';
+
+            let isPragmatic = gameDatabase.some(g => g.id === gameId);
+            let selectedGame = isPragmatic ? gameDatabase.find(g => g.id === gameId) : pgSoftDatabase.find(g => g.id === gameId);
+            let provider = isPragmatic ? "Pragmatic Play" : "PG Soft";
             
             if (selectedGame) {
-                const baseUrl = "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?gameSymbol=";
-                const params = "&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobby_url=https%3A%2F%2Fwww.pragmaticplay.com%2Fen%2F&lang=ID&cur=IDR";
-                
+                // Set Dropdown option
+                document.getElementById('gameSelect').value = selectedGame.id;
+
                 const iframe = document.getElementById('gameFrame');
                 iframe.src = "about:blank"; 
+                
                 setTimeout(() => {
-                    iframe.src = baseUrl + selectedGame.id + params;
+                    // Cek Tautan Iframe Berdasarkan Provider
+                    if (provider === "Pragmatic Play") {
+                        const baseUrl = "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?gameSymbol=";
+                        const params = "&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobby_url=https%3A%2F%2Fwww.pragmaticplay.com%2Fen%2F&lang=ID&cur=IDR";
+                        iframe.src = baseUrl + selectedGame.id + params;
+                    } else if (provider === "PG Soft") {
+                        iframe.src = `https://m.pgsoft-games.com/play.html?game_id=${selectedGame.id}&lang=id&__refer=m.pgsoft-games.com`;
+                    }
                 }, 100);
 
+                // Update Detail SEO di bawah Iframe
                 document.getElementById('displayTitle').innerText = selectedGame.name;
-                document.getElementById('displayMeta').innerText = `Pragmatic Play • RTP ${selectedGame.rtp} • ${selectedGame.volatility} Volatility`;
+                document.getElementById('displayMeta').innerHTML = `${provider} &bull; RTP ${selectedGame.rtp} &bull; ${selectedGame.volatility} Volatility`;
                 document.getElementById('descTitle').innerText = `Tentang Slot Demo ${selectedGame.name}`;
                 document.getElementById('descText').innerText = `Mainkan slot demo ${selectedGame.name} secara gratis. Game ini memiliki RTP sebesar ${selectedGame.rtp} dengan tingkat volatilitas ${selectedGame.volatility}. ${selectedGame.desc}`;
+                
+                // Scroll layarnya ke atas
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
 
-        // --- 4. FUNGSI UTILITAS ---
+        // --- 8. FUNGSI KEMBALI KE MENU UTAMA ---
+        function showLanding() {
+            document.getElementById('gameView').style.display = 'none';
+            document.getElementById('landingView').style.display = 'block';
+            document.getElementById('gameFrame').src = "about:blank"; // Matikan suara iframe
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- 9. FUNGSI UTILITAS TAMBAHAN ---
         function reloadGame() {
             var iframe = document.getElementById('gameFrame');
             var currentSrc = iframe.src;
