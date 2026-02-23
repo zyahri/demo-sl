@@ -503,10 +503,10 @@
 
         .game-selector-container {
             position: relative;
-            min-width: 250px;
+            min-width: 200px;
         }
 
-        select#gameSelect {
+        select {
             background-color: var(--bg-dark);
             color: var(--text-main);
             border: 1px solid var(--border-color);
@@ -521,7 +521,7 @@
             transition: border 0.3s;
         }
 
-        select#gameSelect:focus {
+        select:focus {
             border-color: var(--accent);
         }
 
@@ -689,6 +689,16 @@
             <div class="game-selector-container">
                 <select id="gameSelect" onchange="changeGame(this.value)">
                     </select>
+            </div>
+
+            <div class="game-selector-container" style="min-width: 120px;">
+                <select id="currencySelect" onchange="changeGame(document.getElementById('gameSelect').value)">
+                    <option value="IDR">IDR (Rp)</option>
+                    <option value="USD">USD ($)</option>
+                    <option value="EUR">EUR (€)</option>
+                    <option value="MYR">MYR (RM)</option>
+                    <option value="THB">THB (฿)</option>
+                </select>
             </div>
 
             <div class="game-info-container">
@@ -1015,6 +1025,9 @@
             let selectedGame = isPragmatic ? gameDatabase.find(g => g.id === gameId) : pgSoftDatabase.find(g => g.id === gameId);
             let provider = isPragmatic ? "Pragmatic Play" : "PG Soft";
             
+            // Ambil mata uang yang dipilih dari dropdown baru
+            let selectedCurrency = document.getElementById('currencySelect').value;
+            
             if (selectedGame) {
                 // Set Dropdown option
                 document.getElementById('gameSelect').value = selectedGame.id;
@@ -1023,13 +1036,15 @@
                 iframe.src = "about:blank"; 
                 
                 setTimeout(() => {
-                    // Cek Tautan Iframe Berdasarkan Provider
+                    // Cek Tautan Iframe Berdasarkan Provider dan inject Mata Uang (Currency)
                     if (provider === "Pragmatic Play") {
                         const baseUrl = "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?gameSymbol=";
-                        const params = "&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobby_url=https%3A%2F%2Fwww.pragmaticplay.com%2Fen%2F&lang=ID&cur=IDR";
+                        // Parameter cur diubah dinamis sesuai dengan dropdown
+                        const params = `&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobby_url=https%3A%2F%2Fwww.pragmaticplay.com%2Fen%2F&lang=ID&cur=${selectedCurrency}`;
                         iframe.src = baseUrl + selectedGame.id + params;
                     } else if (provider === "PG Soft") {
-                        iframe.src = `https://m.pgsoft-games.com/play.html?game_id=${selectedGame.id}&lang=id&__refer=m.pgsoft-games.com`;
+                        // PG Soft diinjeksi dengan parameter currency
+                        iframe.src = `https://m.pgsoft-games.com/play.html?game_id=${selectedGame.id}&lang=id&__refer=m.pgsoft-games.com&currency=${selectedCurrency}`;
                     }
                 }, 100);
 
