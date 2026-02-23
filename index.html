@@ -652,11 +652,21 @@
 
         <section class="catalog-section">
             <div class="catalog-header">
-                <h2>All Demo Games</h2>
-                <button class="view-all-btn" id="viewAllBtn">View All Games</button>
+                <h2>Pragmatic Play Games</h2>
+                <button class="view-all-btn" id="viewAllPragmaticBtn">View All Games</button>
             </div>
             
-            <div class="cards-container" id="cardsContainer">
+            <div class="cards-container" id="cardsPragmaticContainer">
+                </div>
+        </section>
+
+        <section class="catalog-section">
+            <div class="catalog-header">
+                <h2>PG Soft Games</h2>
+                <button class="view-all-btn" id="viewAllPgSoftBtn">View All Games</button>
+            </div>
+            
+            <div class="cards-container" id="cardsPgSoftContainer">
                 </div>
         </section>
     </section>
@@ -809,10 +819,11 @@
             pgSoftDatabase[0] // Mahjong Ways 2
         ];
 
-        let isShowingAll = false;
+        // State untuk tombol View All
+        let isShowingAllPragmatic = false;
+        let isShowingAllPgSoft = false;
+        
         let currentSlide = 0;
-        const cardsContainer = document.getElementById('cardsContainer');
-        const viewAllBtn = document.getElementById('viewAllBtn');
 
         // --- 3. INISIALISASI HALAMAN ---
         window.onload = function() {
@@ -829,10 +840,45 @@
                 selectMenu.appendChild(option);
             });
 
-            // Jalankan Slider dan Katalog
+            // Jalankan Slider dan Katalog untuk masing-masing provider
             initHeroSlider();
-            renderCatalog(10); // Menampilkan 10 Card awal
+            renderCatalog(gameDatabase, 'cardsPragmaticContainer', 10); 
+            renderCatalog(pgSoftDatabase, 'cardsPgSoftContainer', 10); 
             initDragToScroll();
+            
+            // Setup Tombol View All Pragmatic Play
+            const btnPragmatic = document.getElementById('viewAllPragmaticBtn');
+            const containerPragmatic = document.getElementById('cardsPragmaticContainer');
+            btnPragmatic.addEventListener('click', () => {
+                if (!isShowingAllPragmatic) {
+                    renderCatalog(gameDatabase, 'cardsPragmaticContainer', gameDatabase.length); 
+                    containerPragmatic.classList.add('grid-view'); 
+                    btnPragmatic.innerText = "Show Less Games";
+                } else {
+                    renderCatalog(gameDatabase, 'cardsPragmaticContainer', 10); 
+                    containerPragmatic.classList.remove('grid-view'); 
+                    btnPragmatic.innerText = "View All Games";
+                    containerPragmatic.parentElement.scrollIntoView({ behavior: 'smooth' });
+                }
+                isShowingAllPragmatic = !isShowingAllPragmatic;
+            });
+
+            // Setup Tombol View All PG Soft
+            const btnPgSoft = document.getElementById('viewAllPgSoftBtn');
+            const containerPgSoft = document.getElementById('cardsPgSoftContainer');
+            btnPgSoft.addEventListener('click', () => {
+                if (!isShowingAllPgSoft) {
+                    renderCatalog(pgSoftDatabase, 'cardsPgSoftContainer', pgSoftDatabase.length); 
+                    containerPgSoft.classList.add('grid-view'); 
+                    btnPgSoft.innerText = "Show Less Games";
+                } else {
+                    renderCatalog(pgSoftDatabase, 'cardsPgSoftContainer', 10); 
+                    containerPgSoft.classList.remove('grid-view'); 
+                    btnPgSoft.innerText = "View All Games";
+                    containerPgSoft.parentElement.scrollIntoView({ behavior: 'smooth' });
+                }
+                isShowingAllPgSoft = !isShowingAllPgSoft;
+            });
         };
 
         // --- 4. FUNGSI HERO SLIDER (BANNER ATAS FULL LAYAR) ---
@@ -875,10 +921,11 @@
             }, 5000);
         }
 
-        // --- 5. FUNGSI RENDER KATALOG CARD (BING PROXY & OVERLAY) ---
-        function renderCatalog(limit) {
-            cardsContainer.innerHTML = '';
-            const gamesToRender = allGamesDatabase.slice(0, limit);
+        // --- 5. FUNGSI RENDER KATALOG CARD ---
+        function renderCatalog(database, containerId, limit) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            const gamesToRender = database.slice(0, limit);
 
             gamesToRender.forEach(game => {
                 const card = document.createElement('div');
@@ -887,7 +934,7 @@
                 const isPragmatic = gameDatabase.some(g => g.id === game.id);
                 const providerName = isPragmatic ? "Pragmatic Play" : "PG Soft";
                 
-                // Trik Proxy Bing Anda
+                // Trik Proxy Bing
                 const searchQuery = providerName + " " + game.name + " slot";
                 const proxyUrl = "https://tse2.mm.bing.net/th?q=" + encodeURIComponent(searchQuery) + "&w=400&h=400&c=7&rs=1&p=0&dpr=1&pid=1.7";
                 const fallbackUrl = `https://placehold.co/400x400/181b21/facc15?font=Montserrat&text=${encodeURIComponent(game.name)}`;
@@ -917,55 +964,44 @@
                     changeGame(game.id);
                 });
 
-                cardsContainer.appendChild(card);
+                container.appendChild(card);
             });
         }
 
-        // Logic View All memecah slider menjadi Grid CSS Full Screen
-        viewAllBtn.addEventListener('click', () => {
-            if (!isShowingAll) {
-                renderCatalog(allGamesDatabase.length); 
-                cardsContainer.classList.add('grid-view'); 
-                viewAllBtn.innerText = "Show Less Games";
-            } else {
-                renderCatalog(10); 
-                cardsContainer.classList.remove('grid-view'); 
-                viewAllBtn.innerText = "View All Games";
-                document.querySelector('.catalog-section').scrollIntoView({ behavior: 'smooth' });
-            }
-            isShowingAll = !isShowingAll;
-        });
-
-        // --- 6. FUNGSI DRAG TO SCROLL (Khusus Saat Tidak Grid View) ---
+        // --- 6. FUNGSI DRAG TO SCROLL (Berlaku untuk semua container) ---
         function initDragToScroll() {
-            let isDown = false;
-            let startX;
-            let scrollLeft;
+            const containers = document.querySelectorAll('.cards-container');
+            
+            containers.forEach(container => {
+                let isDown = false;
+                let startX;
+                let scrollLeft;
 
-            cardsContainer.addEventListener('mousedown', (e) => {
-                if(cardsContainer.classList.contains('grid-view')) return; 
-                isDown = true;
-                cardsContainer.classList.add('active');
-                startX = e.pageX - cardsContainer.offsetLeft;
-                scrollLeft = cardsContainer.scrollLeft;
-            });
-            
-            cardsContainer.addEventListener('mouseleave', () => {
-                isDown = false;
-                cardsContainer.classList.remove('active');
-            });
-            
-            cardsContainer.addEventListener('mouseup', () => {
-                isDown = false;
-                cardsContainer.classList.remove('active');
-            });
-            
-            cardsContainer.addEventListener('mousemove', (e) => {
-                if (!isDown || cardsContainer.classList.contains('grid-view')) return;
-                e.preventDefault();
-                const x = e.pageX - cardsContainer.offsetLeft;
-                const walk = (x - startX) * 2; 
-                cardsContainer.scrollLeft = scrollLeft - walk;
+                container.addEventListener('mousedown', (e) => {
+                    if(container.classList.contains('grid-view')) return; 
+                    isDown = true;
+                    container.classList.add('active');
+                    startX = e.pageX - container.offsetLeft;
+                    scrollLeft = container.scrollLeft;
+                });
+                
+                container.addEventListener('mouseleave', () => {
+                    isDown = false;
+                    container.classList.remove('active');
+                });
+                
+                container.addEventListener('mouseup', () => {
+                    isDown = false;
+                    container.classList.remove('active');
+                });
+                
+                container.addEventListener('mousemove', (e) => {
+                    if (!isDown || container.classList.contains('grid-view')) return;
+                    e.preventDefault();
+                    const x = e.pageX - container.offsetLeft;
+                    const walk = (x - startX) * 2; 
+                    container.scrollLeft = scrollLeft - walk;
+                });
             });
         }
 
