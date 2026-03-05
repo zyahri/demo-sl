@@ -86,15 +86,28 @@ async function fetchGamesFromAPI() {
     const slideContainer = document.getElementById('slideContainer');
     
     try {
-        // Menggunakan URL yang benar dari dokumentasi, mengambil 150 game pertama
         const response = await fetch("https://slotslaunch.com/api/games?per_page=150", {
             method: "GET",
             headers: {
+                // MENGGUNAKAN API KEY BARU
                 "Authorization": "Bearer TnR1kKqPwZuUQSnQ0ABzC4FY4lCRAJLdiiehB5QLL8PYDWV1xb",
                 "Accept": "application/json"
             }
         });
 
+        // Parse JSON dari response
+        const data = await response.json();
+
+        // 1. CEK JIKA API MEMBERIKAN PESAN ERROR EKSPLISIT
+        if (data && data.error) {
+            console.error("API Error Message:", data.error);
+            if (slideContainer) {
+                slideContainer.innerHTML = `<h2 style="color:#ff4444; text-align:center; padding: 100px 20px;">AKSES API DITOLAK<br><span style="font-size:16px; color:#ccc;">Pesan dari server: <b>"${data.error}"</b></span></h2>`;
+            }
+            return;
+        }
+
+        // Cek Http Status
         if (!response.ok) {
             console.error("API Error Response:", response);
             if (slideContainer) {
@@ -102,10 +115,8 @@ async function fetchGamesFromAPI() {
             }
             return;
         }
-
-        const data = await response.json();
         
-        // Mengambil array data dari struktur JSON API Slots Launch (data.data)
+        // 2. AMBIL ARRAY DATA
         let apiGames = [];
         if (data && data.data && Array.isArray(data.data)) {
             apiGames = data.data;
@@ -117,9 +128,8 @@ async function fetchGamesFromAPI() {
             return;
         }
 
-        // Mapping Data API sesuai kolom di dokumentasi ke format Website kamu
+        // 3. MAPPING DATA
         gameDatabase = apiGames.map(game => {
-            // Mengubah format volatility dari "high" menjadi "High"
             let vol = game.volatility ? game.volatility.charAt(0).toUpperCase() + game.volatility.slice(1) : "High";
             
             return {
@@ -131,9 +141,6 @@ async function fetchGamesFromAPI() {
                 provider: game.provider_name || "Unknown Provider"
             };
         });
-
-        // Jika kamu hanya ingin menampilkan Pragmatic Play, aktifkan filter di bawah ini dengan menghapus tanda //
-        // gameDatabase = gameDatabase.filter(g => g.provider.toLowerCase().includes("pragmatic"));
 
         allGamesDatabase = [...gameDatabase];
         
