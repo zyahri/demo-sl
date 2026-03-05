@@ -90,7 +90,7 @@ async function fetchGamesFromAPI() {
         const response = await fetch("https://slotslaunch.com/api/games?per_page=150", {
             method: "GET",
             headers: {
-                "Authorization": "Bearer dmjtmb2rRCJP20z2nT0ULG5qkO6wIy9tIxr3gs82KzuPMgGiYu",
+                "Authorization": "Bearer TnR1kKqPwZuUQSnQ0ABzC4FY4lCRAJLdiiehB5QLL8PYDWV1xb",
                 "Accept": "application/json"
             }
         });
