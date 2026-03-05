@@ -17,7 +17,7 @@ let currentSlide = 0;
 window.onload = async function() {
     const slideContainer = document.getElementById('slideContainer');
     
-    // 1. Tampilkan loading di layar
+    // 1. Tampilkan loading
     if (slideContainer) {
         slideContainer.innerHTML = `<h2 style="color:white; text-align:center; padding: 100px 20px;">Menghubungkan ke API Slots Launch...</h2>`;
     }
@@ -25,7 +25,7 @@ window.onload = async function() {
     // 2. Fetch data
     await fetchGamesFromAPI();
 
-    // 3. Jika gagal/kosong, hentikan proses (pesan error sudah ditangani di dalam fetch)
+    // 3. Jika gagal/kosong, hentikan proses render
     if (gameDatabase.length === 0) {
         return; 
     }
@@ -33,7 +33,7 @@ window.onload = async function() {
     // Bersihkan layar loading
     if (slideContainer) slideContainer.innerHTML = '';
 
-    // 4. Render semua komponen jika data berhasil didapat
+    // 4. Render UI
     initHeroSlider();
     initSearch(); 
     renderHistory();
@@ -81,21 +81,20 @@ window.onload = async function() {
     }
 };
 
-// --- FUNGSI MENGAMBIL DATA API DENGAN ERROR HANDLING VISUAL ---
+// --- FUNGSI MENGAMBIL DATA API SESUAI DOKUMENTASI ---
 async function fetchGamesFromAPI() {
     const slideContainer = document.getElementById('slideContainer');
     
     try {
-        const response = await fetch("https://api.slotslaunch.com/v1/games?provider=pragmatic", {
+        // Menggunakan URL yang benar dari dokumentasi, mengambil 150 game pertama
+        const response = await fetch("https://slotslaunch.com/api/games?per_page=150", {
             method: "GET",
             headers: {
                 "Authorization": "Bearer dmjtmb2rRCJP20z2nT0ULG5qkO6wIy9tIxr3gs82KzuPMgGiYu",
-                "Content-Type": "application/json",
                 "Accept": "application/json"
             }
         });
 
-        // Jika API menolak (401 Unauthorized, 403 Forbidden, 404 Not Found)
         if (!response.ok) {
             console.error("API Error Response:", response);
             if (slideContainer) {
@@ -106,31 +105,35 @@ async function fetchGamesFromAPI() {
 
         const data = await response.json();
         
-        // Coba mencari array game di berbagai kemungkinan struktur respon JSON
-        let apiGames = data;
-        if (data.data && Array.isArray(data.data)) apiGames = data.data;
-        else if (data.games && Array.isArray(data.games)) apiGames = data.games;
-        else if (data.items && Array.isArray(data.items)) apiGames = data.items;
-        else if (data.response && Array.isArray(data.response)) apiGames = data.response;
-        else if (data.response && data.response.games && Array.isArray(data.response.games)) apiGames = data.response.games;
-
-        // Jika data masih bukan array, tampilkan pesan error struktur
-        if (!Array.isArray(apiGames)) {
+        // Mengambil array data dari struktur JSON API Slots Launch (data.data)
+        let apiGames = [];
+        if (data && data.data && Array.isArray(data.data)) {
+            apiGames = data.data;
+        } else {
             console.log("Response aseli dari API:", data);
             if (slideContainer) {
-                slideContainer.innerHTML = `<h2 style="color:#ffdd00; text-align:center; padding: 100px 20px;">STRUKTUR API TIDAK DIKENALI<br><span style="font-size:16px; color:#ccc;">Mohon tekan F12 lalu lihat Console untuk melihat format data aslinya.</span></h2>`;
+                slideContainer.innerHTML = `<h2 style="color:#ffdd00; text-align:center; padding: 100px 20px;">STRUKTUR API TIDAK DIKENALI<br><span style="font-size:16px; color:#ccc;">Mohon cek Console (F12) untuk melihat format data aslinya.</span></h2>`;
             }
             return;
         }
 
-        // Mapping Data API ke Variabel
-        gameDatabase = apiGames.map(game => ({
-            id: game.game_code || game.id || game.slug || "unknown", 
-            name: game.game_name || game.name || game.title || "Unknown Game",
-            rtp: game.rtp || "96.50%", 
-            volatility: game.volatility || "High", 
-            desc: game.description || "Pragmatic Play Slot Demo."
-        }));
+        // Mapping Data API sesuai kolom di dokumentasi ke format Website kamu
+        gameDatabase = apiGames.map(game => {
+            // Mengubah format volatility dari "high" menjadi "High"
+            let vol = game.volatility ? game.volatility.charAt(0).toUpperCase() + game.volatility.slice(1) : "High";
+            
+            return {
+                id: game.slug || game.id || "unknown", 
+                name: game.name || "Unknown Game",
+                rtp: game.rtp ? game.rtp + "%" : "96.50%", 
+                volatility: vol, 
+                desc: game.description || "Slot Demo Game by " + (game.provider_name || "Provider"),
+                provider: game.provider_name || "Unknown Provider"
+            };
+        });
+
+        // Jika kamu hanya ingin menampilkan Pragmatic Play, aktifkan filter di bawah ini dengan menghapus tanda //
+        // gameDatabase = gameDatabase.filter(g => g.provider.toLowerCase().includes("pragmatic"));
 
         allGamesDatabase = [...gameDatabase];
         
@@ -141,10 +144,9 @@ async function fetchGamesFromAPI() {
         }
 
     } catch (error) {
-        // Error koneksi / CORS
         console.error("Koneksi API Gagal / CORS Blocked:", error);
         if (slideContainer) {
-            slideContainer.innerHTML = `<h2 style="color:#ff4444; text-align:center; padding: 100px 20px;">GAGAL MENGHUBUNGI API<br><span style="font-size:16px; color:#ccc;">Terjadi masalah CORS (Cross-Origin) atau koneksi internet terputus. Cek Console (F12) untuk detailnya.</span></h2>`;
+            slideContainer.innerHTML = `<h2 style="color:#ff4444; text-align:center; padding: 100px 20px;">GAGAL MENGHUBUNGI API<br><span style="font-size:16px; color:#ccc;">Terjadi masalah CORS (Cross-Origin) atau koneksi internet. Cek Console (F12) untuk detailnya.</span></h2>`;
         }
     }
 }
@@ -169,7 +171,7 @@ function initSearch() {
         if (results.length > 0) {
             searchResults.style.display = 'flex';
             results.forEach(game => {
-                const providerName = "Pragmatic Play";
+                const providerName = game.provider || "Provider";
                 const searchQuery = providerName + " " + game.name + " slot poster";
                 const proxyUrl = "https://tse2.mm.bing.net/th?q=" + encodeURIComponent(searchQuery) + "&w=100&h=100&c=7&rs=1&p=0&dpr=1&pid=1.7";
 
@@ -253,7 +255,7 @@ function initHeroSlider() {
     indicatorsContainer.innerHTML = '';
 
     heroFeaturedGames.forEach((game, index) => {
-        const providerName = "Pragmatic Play";
+        const providerName = game.provider || "Provider";
         const searchQuery = providerName + " " + game.name + " cinematic wallpaper hd";
         const proxyUrl = "https://tse2.mm.bing.net/th?q=" + encodeURIComponent(searchQuery) + "&w=1920&h=1080&c=7&rs=1&p=0&dpr=1&pid=1.7";
         
@@ -304,7 +306,7 @@ function renderCatalog(database, containerId, limit) {
         card.className = 'game-card';
         card.href = 'game/' + slugify(game.name) + '.html';
         
-        const providerName = "Pragmatic Play";
+        const providerName = game.provider || "Provider";
         const searchQuery = providerName + " " + game.name + " slot poster";
         const proxyUrl = "https://tse2.mm.bing.net/th?q=" + encodeURIComponent(searchQuery) + "&w=400&h=600&c=7&rs=1&p=0&dpr=1&pid=1.7";
         const fallbackUrl = `https://placehold.co/400x600/141519/e50914?font=Montserrat&text=${encodeURIComponent(game.name)}`;
