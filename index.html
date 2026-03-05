@@ -1,1099 +1,124 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <meta name="referrer" content="no-referrer">
     
-    <title>Demo Slot Pragmatic Play & PG Soft | Profesional Demo</title>
+    <meta name="description" content="Professional Pragmatic Play Slot Demo Game Collection. Play for free without registration.">
+    <meta name="keywords" content="slot demo, pragmatic play, free slot games, online slot demo">
+    <meta name="robots" content="index, follow">
+    
+    <title>Pragmatic Play Slot Demo | Professional Demo</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Saira:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="icon.svg" type="image/svg+xml">
 
-    <style>
-        :root {
-            /* Warna Dasar Eksklusif */
-            --bg-dark: #0f1115;
-            --bg-card: #181b21;
-            --accent: #facc15; /* Emas/Kuning Slot */
-            --accent-hover: #eab308;
-            --text-main: #ffffff;
-            --text-muted: #9ca3af;
-            --border-color: #2d3139;
-            --header-height: 76px;
-        }
-
-        /* Custom Scrollbar Global */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-dark); }
-        ::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-
-        /* --- HEADER EKSKLUSIF --- */
-        header {
-            height: var(--header-height);
-            background: rgba(15, 17, 21, 0.95);
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 3rem;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 100;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .logo {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            text-decoration: none;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-        }
-
-        .logo span.demo { color: var(--text-main); }
-        .logo span.slot { color: var(--text-main); font-weight: 500; }
-        .logo span.pro {
-            color: var(--accent);
-            text-shadow: 0 0 20px rgba(250, 204, 21, 0.4);
-        }
-
-        /* --- LANDING VIEW --- */
-        #landingView {
-            margin-top: var(--header-height);
-            padding: 0 0 2rem 0; 
-            min-height: calc(100vh - var(--header-height));
-            background-image: radial-gradient(circle at top, #1f232b 0%, #0f1115 100%);
-            width: 100%;
-        }
-
-        /* --- HERO AUTO SLIDER (DIBUAT FULL LAYAR MENEMPEL KIRI-KANAN) --- */
-        .hero-slider-wrapper {
-            width: 100%; /* Full 100% layar */
-            max-width: 100%;
-            height: 500px;
-            margin: 0 auto 3rem auto; /* Jarak bawah 3rem agar tidak menempel ke card */
-            position: relative;
-            border-radius: 0; /* Border radius dihapus agar menempel ujung monitor */
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .hero-slides {
-            width: 100%;
-            height: 100%;
-            position: relative;
-        }
-
-        .hero-slide {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            opacity: 0;
-            transition: opacity 1s ease-in-out, transform 3s ease;
-            background-size: cover;
-            background-position: center;
-            transform: scale(1.05);
-        }
-
-        .hero-slide.active {
-            opacity: 1;
-            transform: scale(1);
-            z-index: 2;
-        }
-
-        .hero-slide-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to right, rgba(15, 17, 21, 0.95) 0%, rgba(15, 17, 21, 0.4) 50%, transparent 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 0 4rem;
-        }
-
-        .hero-slide-title {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 3.5rem;
-            color: var(--text-main);
-            margin-bottom: 10px;
-            text-shadow: 0 5px 15px rgba(0,0,0,0.8);
-            max-width: 600px;
-            line-height: 1.1;
-        }
-
-        .hero-slide-desc {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            margin-bottom: 25px;
-            max-width: 500px;
-            line-height: 1.6;
-        }
-
-        .hero-play-btn {
-            background: var(--accent);
-            color: #000;
-            padding: 14px 32px;
-            border-radius: 30px;
-            font-weight: 700;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            border: none;
-            transition: all 0.3s;
-            width: fit-content;
-            box-shadow: 0 10px 25px rgba(250, 204, 21, 0.3);
-        }
-
-        .hero-play-btn:hover {
-            background: var(--accent-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(250, 204, 21, 0.5);
-        }
-
-        /* --- CATALOG SECTION (DIBUAT FULL LAYAR KIRI-KANAN) --- */
-        .catalog-section {
-            width: 100%;
-            max-width: 100%; /* Menghapus batas lebar */
-            padding: 0 3rem; /* Sejajar dengan jarak padding Logo Header */
-            margin: 0 auto 3rem auto;
-        }
-
-        .catalog-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .catalog-header h2 {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.8rem;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .catalog-header h2::before {
-            content: '';
-            display: block;
-            width: 6px;
-            height: 24px;
-            background: var(--accent);
-            border-radius: 4px;
-        }
-
-        .view-all-btn {
-            background: var(--bg-card);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .view-all-btn:hover {
-            background: rgba(250, 204, 21, 0.1);
-            color: var(--accent);
-            border-color: var(--accent);
-        }
-
-        /* Container Drag & Grid Full Layar */
-        .cards-container {
-            display: flex;
-            gap: 16px;
-            overflow-x: auto;
-            padding-bottom: 25px;
-            scroll-behavior: smooth;
-            cursor: grab;
-            -ms-overflow-style: none; /* IE and Edge */
-            scrollbar-width: none; /* Firefox */
-        }
-        
-        .cards-container::-webkit-scrollbar { display: none; }
-        .cards-container.active { cursor: grabbing; }
-        
-        /* Grid dinamis yang memenuhi layar komputer */
-        .cards-container.grid-view {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Responsif memenuhi space monitor */
-            gap: 16px;
-            overflow-x: visible;
-        }
-
-        .game-card {
-            flex: 0 0 220px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
-            position: relative;
-            backdrop-filter: blur(10px);
-        }
-
-        .cards-container.grid-view .game-card {
-            flex: unset;
-            min-width: unset;
-            max-width: none;
-        }
-
-        .game-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-            border-color: var(--accent);
-        }
-
-        .game-card-thumb {
-            width: 100%;
-            aspect-ratio: 1/1; 
-            position: relative;
-            border-bottom: 1px solid var(--border-color);
-            overflow: hidden;
-        }
-
-        .game-card-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-            background-color: var(--bg-dark);
-        }
-
-        .game-card:hover .game-card-thumb img {
-            transform: scale(1.1); 
-        }
-
-        .play-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 17, 21, 0.85);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 3;
-        }
-
-        .game-card:hover .play-overlay {
-            opacity: 1;
-        }
-
-        .play-btn {
-            background: var(--accent);
-            color: #000;
-            padding: 10px 24px;
-            border-radius: 30px;
-            font-weight: 700;
-            font-family: 'Rajdhani', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 5px 15px rgba(250, 204, 21, 0.3);
-            transition: transform 0.2s;
-        }
-        
-        .play-btn:hover {
-            transform: scale(1.05);
-        }
-
-        .game-card-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: #ef4444; 
-            color: white;
-            font-size: 11px;
-            font-weight: bold;
-            padding: 4px 8px;
-            border-radius: 4px;
-            z-index: 2;
-        }
-
-        .game-card-info {
-            padding: 15px;
-            text-align: center;
-        }
-
-        .game-card-info h3 {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.15rem;
-            margin-bottom: 5px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            color: var(--text-main);
-        }
-
-        .game-card-info .provider-tag {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            background: rgba(255,255,255,0.05);
-            padding: 3px 10px;
-            border-radius: 10px;
-            display: inline-block;
-        }
-
-        /* --- GAME VIEW (RUANGAN BERMAIN) --- */
-        .game-wrapper {
-            margin-top: var(--header-height);
-            width: 100%;
-            min-height: calc(100vh - var(--header-height));
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-image: radial-gradient(circle at center, #1f232b 0%, #0f1115 70%);
-            padding: 2rem 1rem;
-        }
-
-        .game-header-area {
-            width: 100%;
-            max-width: 1280px;
-            margin-bottom: 1rem;
-            display: flex;
-            justify-content: flex-start;
-        }
-
-        .btn-back {
-            background: transparent;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s;
-        }
-
-        .btn-back:hover {
-            background: rgba(250, 204, 21, 0.1);
-            transform: translateX(-5px);
-        }
-
-        .theater-stage {
-            width: 100%;
-            max-width: 1280px;
-            position: relative;
-            margin: 0 auto 20px auto;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
-            background: #000;
-            aspect-ratio: 16/9; 
-            border: 1px solid var(--border-color);
-        }
-
-        .loader {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 50px;
-            height: 50px;
-            border: 4px solid var(--border-color);
-            border-top: 4px solid var(--accent);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            z-index: 1;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            position: relative;
-            z-index: 2;
-            display: block;
-        }
-
-        /* --- CONTROLS BAR --- */
-        .control-bar {
-            width: 100%;
-            max-width: 1280px;
-            background: var(--bg-card);
-            padding: 1.5rem 2rem;
-            border-radius: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 3rem;
-            border: 1px solid var(--border-color);
-            flex-wrap: wrap; 
-            gap: 15px;
-        }
-
-        .game-info-container {
-            flex: 1;
-            min-width: 250px;
-            border-left: 2px solid var(--border-color);
-            padding-left: 20px;
-        }
-
-        .game-title h1 {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.8rem;
-            margin-bottom: 6px;
-            color: var(--accent);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        
-        .game-meta {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .game-meta::before {
-            content: '';
-            display: inline-block;
-            width: 6px;
-            height: 6px;
-            background: var(--accent);
-            border-radius: 50%;
-        }
-
-        .game-selector-container {
-            position: relative;
-            min-width: 200px;
-        }
-
-        select {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            padding: 12px 15px;
-            border-radius: 8px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            outline: none;
-            width: 100%;
-            transition: border 0.3s;
-        }
-
-        select:focus {
-            border-color: var(--accent);
-        }
-
-        .actions {
-            display: flex;
-            gap: 12px;
-        }
-
-        .btn {
-            background: var(--bg-dark);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 0.8rem 1.4rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.2s;
-            font-size: 0.9rem;
-        }
-
-        .btn:hover {
-            background: #232730;
-            border-color: var(--text-muted);
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            color: #000;
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background: var(--accent-hover);
-        }
-
-        /* --- SEO CONTENT AREA --- */
-        .content-area {
-            width: 100%;
-            max-width: 1280px;
-            padding: 2.5rem;
-            background: rgba(24, 27, 33, 0.4);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            color: var(--text-muted);
-            line-height: 1.8;
-            margin-bottom: 3rem;
-        }
-        
-        .content-area h2 {
-            color: var(--text-main);
-            margin-bottom: 1rem;
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.6rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .content-area h2::before {
-            content: '';
-            display: block;
-            width: 4px;
-            height: 24px;
-            background: var(--accent);
-            border-radius: 2px;
-        }
-
-        @keyframes spin {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 860px) {
-            header { padding: 0 1.5rem; }
-            .logo { font-size: 1.5rem; }
-            
-            .hero-slider-wrapper { height: 300px; width: 100%; margin-bottom: 2rem;}
-            .hero-slide-overlay { padding: 0 2rem; background: rgba(15, 17, 21, 0.7); }
-            .hero-slide-title { font-size: 2rem; }
-            .hero-slide-desc { font-size: 0.95rem; }
-
-            .catalog-section { padding: 0 1.5rem; }
-            .cards-container.grid-view { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-            
-            .theater-stage { border-radius: 0; height: 60vh; aspect-ratio: auto; }
-            
-            .control-bar {
-                flex-direction: column;
-                gap: 20px;
-                padding: 1.5rem;
-                text-align: center;
-                align-items: stretch;
-            }
-
-            .game-info-container { 
-                border-left: none; 
-                padding-left: 0;
-                border-top: 1px solid var(--border-color);
-                border-bottom: 1px solid var(--border-color);
-                padding: 15px 0;
-            }
-            
-            .game-selector-container { margin-right: 0; }
-
-            .actions { width: 100%; justify-content: space-between; flex-direction: column; }
-            .btn { justify-content: center; }
-            .content-area { padding: 1.5rem; }
-        }
-    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Demo Slot Pro",
+      "alternateName": "Pragmatic Play Slot Demo",
+      "url": "https://yourdomain.com/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://yourdomain.com/search?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Pragmatic Play Slot Demo Collection",
+      "operatingSystem": "WebBrowser",
+      "applicationCategory": "GameApplication",
+      "genre": "Slot Online",
+      "description": "Professional platform to play Pragmatic Play Slot Demo for free.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Pragmatic Play"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "bestRating": "5",
+        "ratingCount": "3450"
+      }
+    }
+    </script>
 </head>
 <body>
 
     <header>
-        <a class="logo" onclick="showLanding();"><span class="demo">DEMO</span><span class="slot">SLOT</span><span class="pro">PRO</span></a>
+        <a class="logo" href="index.html"><span class="demo">DEMO</span><span class="slot">SLOT</span><span class="pro">PRO</span></a>
+        
+        <div class="header-right">
+            <div class="search-box">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="searchInput" placeholder="Search games...">
+                <div class="search-results" id="searchResults"></div>
+            </div>
+            <a href="favorites.html" class="header-heart" id="headerHeart" title="My Favorite Games">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </a>
+        </div>
     </header>
 
-    <section id="landingView" style="display: block;">
+    <section id="landingView">
         
         <div class="hero-slider-wrapper" id="heroSlider">
             <div class="hero-slides" id="slideContainer">
                 </div>
+            <div class="slider-indicators" id="sliderIndicators"></div>
         </div>
 
-        <section class="catalog-section">
+        <section class="catalog-section" id="historySection" style="display: none;">
             <div class="catalog-header">
-                <h2>Pragmatic Play Games</h2>
-                <button class="view-all-btn" id="viewAllPragmaticBtn">View All Games</button>
+                <h2>Continue Last Game</h2>
+                <button class="view-all-btn" id="clearHistoryBtn" onclick="clearHistory()">Clear All</button>
             </div>
-            
+            <div class="cards-container" id="cardsHistoryContainer">
+                </div>
+        </section>
+
+        <section class="catalog-section" id="popularSection">
+            <div class="catalog-header">
+                <h2>Popular Games</h2>
+                <button class="view-all-btn" id="viewAllPopularBtn">View More ›</button>
+            </div>
+            <div class="cards-container" id="cardsPopularContainer">
+                </div>
+        </section>
+
+        <section class="catalog-section" id="allPragmaticSection">
+            <div class="catalog-header">
+                <h2>All Pragmatic Play</h2>
+                <button class="view-all-btn" id="viewAllPragmaticBtn">View More ›</button>
+            </div>
             <div class="cards-container" id="cardsPragmaticContainer">
                 </div>
         </section>
 
-        <section class="catalog-section">
-            <div class="catalog-header">
-                <h2>PG Soft Games</h2>
-                <button class="view-all-btn" id="viewAllPgSoftBtn">View All Games</button>
-            </div>
-            
-            <div class="cards-container" id="cardsPgSoftContainer">
-                </div>
-        </section>
     </section>
 
-    <main class="game-wrapper" id="gameView" style="display: none;">
-        
-        <div class="game-header-area">
-            <button class="btn-back" onclick="showLanding()">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                Kembali ke Daftar Game
-            </button>
-        </div>
+    <div id="global-footer-placeholder"></div>
 
-        <div class="theater-stage" id="gameContainer">
-            <div class="loader"></div>
-            <iframe id="gameFrame" src="about:blank" allowfullscreen></iframe>
-        </div>
-
-        <div class="control-bar">
-            <div class="game-selector-container">
-                <select id="gameSelect" onchange="changeGame(this.value)">
-                    </select>
-            </div>
-
-            <div class="game-selector-container" style="min-width: 120px;">
-                <select id="currencySelect" onchange="changeGame(document.getElementById('gameSelect').value)">
-                    <option value="IDR">IDR (Rp)</option>
-                    <option value="USD">USD ($)</option>
-                    <option value="EUR">EUR (€)</option>
-                    <option value="MYR">MYR (RM)</option>
-                    <option value="THB">THB (฿)</option>
-                </select>
-            </div>
-
-            <div class="game-info-container">
-                <div class="game-title">
-                    <h1 id="displayTitle">Game Title</h1>
-                </div>
-                <div class="game-meta" id="displayMeta">Provider • RTP • Volatility</div>
-            </div>
-            
-            <div class="actions">
-                <button class="btn btn-primary" onclick="reloadGame()">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"></path><path d="M1 20v-6h6"></path><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
-                    Isi Ulang Saldo
-                </button>
-                
-                <button class="btn" onclick="toggleFullscreen()">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
-                    Full Screen
-                </button>
-            </div>
-        </div>
-
-        <section class="content-area">
-            <h2 id="descTitle">Tentang Slot Demo</h2>
-            <p id="descText">Mainkan slot demo secara gratis tanpa deposit. Game ini menawarkan fitur menarik. Cocok untuk Anda yang ingin mencoba pola gacor sebelum bermain dengan uang asli.</p>
-        </section>
-
-    </main>
-
-    <script>
-        // --- 1. DATA BASE GAME PRAGMATIC PLAY ---
-        const gameDatabase = [
-            {id: "vs20starlight", name: "Starlight Princess", rtp: "96.50%", volatility: "High", desc: "Putri bintang dengan tongkat ajaib pengali kemenangan."},
-            {id: "vs20starlightx", name: "Starlight Princess 1000", rtp: "96.50%", volatility: "Very High", desc: "Kekuatan putri ditingkatkan hingga x1000."},
-            {id: "vs20olympgate", name: "Gates of Olympus", rtp: "96.50%", volatility: "High", desc: "Sang Kakek Zeus menunggu dengan petir x500."},
-            {id: "vs20olympx", name: "Gates of Olympus 1000", rtp: "96.50%", volatility: "Very High", desc: "Versi upgrade Zeus dengan potensi max win lebih besar."},
-            {id: "vs20fruitsw", name: "Sweet Bonanza", rtp: "96.48%", volatility: "Medium", desc: "Dunia permen penuh warna dengan fitur tumbling reels."},
-            {id: "vs20sbxmas", name: "Sweet Bonanza Xmas", rtp: "96.48%", volatility: "Medium", desc: "Versi natal dari Sweet Bonanza dengan salju dingin."},
-            {id: "vs20sugarrush", name: "Sugar Rush", rtp: "96.50%", volatility: "High", desc: "Mesin slot grid 7x7 dengan multiplier spot yang lengket."},
-            {id: "vs20sugarrushx", name: "Sugar Rush 1000", rtp: "96.53%", volatility: "Very High", desc: "Versi ekstrem dari Sugar Rush dengan multiplier hingga 1024x."},
-            {id: "vs20gatotkaca", name: "Gates of Gatot Kaca", rtp: "96.50%", volatility: "High", desc: "Pahlawan super Indonesia dengan kekuatan mitologi."},
-            {id: "vs20gatotkacax", name: "Gates of Gatot Kaca 1000", rtp: "96.50%", volatility: "Very High", desc: "Kekuatan maksimal pahlawan super Indonesia dengan pengali x1000."},
-            {id: "vs15zeushades", name: "Zeus vs Hades - Gods of War", rtp: "96.05%", volatility: "Very High", desc: "Pilih sisi Anda dalam pertempuran epik antara Zeus dan Hades."},
-            {id: "vs20athena", name: "Wisdom of Athena", rtp: "96.07%", volatility: "High", desc: "Kebijaksanaan dewi Athena dengan grid dinamis dan multiplier."},
-            {id: "vs20forge", name: "Forge of Olympus", rtp: "96.25%", volatility: "High", desc: "Tempa kemenangan Anda bersama dewa pandai besi Olympus."},
-            {id: "vs5aztecgems", name: "Aztec Gems", rtp: "96.52%", volatility: "Medium", desc: "Slot klasik 3x3 dengan tema hutan Aztec dan win multiplier."},
-            {id: "vs9aztecgems", name: "Aztec Gems Deluxe", rtp: "96.50%", volatility: "High", desc: "Versi deluxe dengan fitur Money Respin dan Jackpot."},
-            {id: "vs40wildwest", name: "Wild West Gold", rtp: "96.51%", volatility: "High", desc: "Koboi barat liar dengan sticky wild di free spin."},
-            {id: "vswayswwgold", name: "Wild West Gold Megaways", rtp: "96.44%", volatility: "Very High", desc: "Versi Megaways dari legenda Wild West dengan ribuan cara menang."},
-            {id: "vs20bonanzag", name: "Bonanza Gold", rtp: "96.49%", volatility: "High", desc: "Tambang emas dengan dinamit yang meledak-ledak."},
-            {id: "vs20pyramid", name: "Pyramid Bonanza", rtp: "96.48%", volatility: "High", desc: "Misteri Mesir kuno dalam format bonanza yang seru."},
-            {id: "vs20doghouse", name: "The Dog House", rtp: "96.51%", volatility: "High", desc: "Anjing-anjing lucu dengan wild pengali yang lengket."},
-            {id: "vswaysdogs", name: "The Dog House Megaways", rtp: "96.55%", volatility: "High", desc: "Rumah anjing dengan ribuan cara untuk menang."},
-            {id: "vs20doghousemh", name: "The Dog House Multihold", rtp: "96.06%", volatility: "High", desc: "Buka hingga empat matriks permainan sekaligus dengan anjing-anjing lucu."},
-            {id: "vs10bbbonanza", name: "Big Bass Bonanza", rtp: "96.71%", volatility: "Medium-High", desc: "Mancing mania dengan ikan-ikan bayaran besar."},
-            {id: "vs12bbbonanza", name: "Bigger Bass Bonanza", rtp: "96.71%", volatility: "High", desc: "Versi lebih besar dari mancing mania dengan gulungan ekstra."},
-            {id: "vs10bbsplash", name: "Big Bass Splash", rtp: "96.71%", volatility: "High", desc: "Lemparkan kailmu dan tangkap kemenangan besar dengan multiplier."},
-            {id: "vs10bbkir", name: "Big Bass - Keeping it Reel", rtp: "96.07%", volatility: "High", desc: "Simpan ikan tangkapan Anda di jaring untuk hadiah raksasa."},
-            {id: "vs10bbamz", name: "Big Bass Amazon Xtreme", rtp: "96.07%", volatility: "High", desc: "Petualangan memancing paling ekstrem di sungai Amazon."},
-            {id: "vs20kraken", name: "Release the Kraken", rtp: "96.50%", volatility: "High", desc: "Lepaskan monster laut dalam untuk memicu fitur liar."},
-            {id: "vs20kraken2", name: "Release the Kraken 2", rtp: "96.03%", volatility: "High", desc: "Monster laut dalam kembali dengan fitur wild baru."},
-            {id: "vs20fruitparty", name: "Fruit Party", rtp: "96.47%", volatility: "High", desc: "Pesta buah-buahan dengan pengali acak di setiap kluster."},
-            {id: "vs20fruitparty2", name: "Fruit Party 2", rtp: "96.53%", volatility: "High", desc: "Sekuel pesta buah dengan wild multiplier yang terus bertambah."},
-            {id: "vswaysmadame", name: "Madame Destiny Megaways", rtp: "96.56%", volatility: "High", desc: "Ramalan nasib dengan roda keberuntungan dan free spins."},
-            {id: "vs20goldfever", name: "Gems Bonanza", rtp: "96.51%", volatility: "High", desc: "Kumpulkan permata berharga untuk memicu fitur Gold Fever."},
-            {id: "vs20midas", name: "The Hand of Midas", rtp: "96.54%", volatility: "High", desc: "Sentuhan emas Raja Midas dengan sticky wilds."},
-            {id: "vswaysrhino", name: "Great Rhino Megaways", rtp: "96.58%", volatility: "High", desc: "Safari Afrika dengan ribuan cara untuk menang."},
-            {id: "vs20rhino", name: "Great Rhino", rtp: "96.53%", volatility: "Medium", desc: "Nikmati padang rumput liar Afrika bersama badak perkasa."},
-            {id: "vs4064buffalo", name: "Buffalo King", rtp: "96.06%", volatility: "High", desc: "Raja banteng di dataran Amerika dengan free spins epik."},
-            {id: "vswaysbufking", name: "Buffalo King Megaways", rtp: "96.52%", volatility: "High", desc: "Versi megaways dari banteng legendaris dengan tumble feature."},
-            {id: "vs20cleocatra", name: "Cleocatra", rtp: "96.20%", volatility: "High", desc: "Kucing Mesir kuno dengan wild yang lengket dan respin."},
-            {id: "vs40cleopatra", name: "Eye of Cleopatra", rtp: "96.50%", volatility: "High", desc: "Mata Cleopatra yang dapat menggandakan wild ke segala arah."},
-            {id: "vs50juicy", name: "Juicy Fruits", rtp: "96.52%", volatility: "High", desc: "Buah segar dengan wild block besar yang bisa bertumbuh."},
-            {id: "vswayshammthor", name: "Power of Thor Megaways", rtp: "96.55%", volatility: "High", desc: "Kekuatan palu Thor yang mengubah gulungan menjadi wild."},
-            {id: "vs20bchprty", name: "Wild Beach Party", rtp: "96.53%", volatility: "High", desc: "Pesta pantai dengan gadis anime dan wild multiplier."},
-            {id: "vs20farmfest", name: "Barn Festival", rtp: "96.45%", volatility: "High", desc: "Festival panen dengan fitur money respin yang unik."},
-            {id: "vs10floatdrg", name: "Floating Dragon", rtp: "96.71%", volatility: "High", desc: "Festival layang-layang naga dengan fitur hold and spin."},
-            {id: "vs40zombcarn", name: "Zombie Carnival", rtp: "96.50%", volatility: "High", desc: "Karnaval zombie dengan beruang pemakan otak multiplier."},
-            {id: "vs20mahjong", name: "Mahjong Panda", rtp: "96.48%", volatility: "High", desc: "Panda lucu bermain mahjong dengan multiplier bertingkat."},
-            {id: "vs25mustang", name: "Mustang Gold", rtp: "96.53%", volatility: "Medium-High", desc: "Kuda liar dengan fitur kumpulkan uang dan jackpot."},
-            {id: "vs20twilight", name: "Twilight Princess", rtp: "96.08%", volatility: "High", desc: "Putri senja dengan wild multiplier yang lengket di layar."},
-            {id: "vs20schristmas", name: "Starlight Christmas", rtp: "96.50%", volatility: "High", desc: "Edisi spesial musim dingin dari Starlight Princess."},
-            {id: "vs25wolfgold", name: "Wolf Gold", rtp: "96.01%", volatility: "Medium", desc: "Serigala emas legendaris dengan fitur Money Respin Jackpot."},
-            {id: "vs25scarabqueen", name: "John Hunter and the Tomb of the Scarab Queen", rtp: "96.50%", volatility: "Medium", desc: "Eksplorasi makam kuno mesir untuk mengumpulkan koin uang."},
-            {id: "vs10bookoftut", name: "John Hunter and the Book of Tut", rtp: "96.50%", volatility: "High", desc: "Cari buku misterius dengan simbol yang dapat meluas (expanding symbols)."},
-            {id: "vs20bof", name: "Book of the Fallen", rtp: "96.50%", volatility: "High", desc: "Eksplorasi gelap John Hunter dengan fitur simbol meluas pilihan pemain."},
-            {id: "vs25chilli", name: "Chilli Heat", rtp: "96.50%", volatility: "Medium", desc: "Mariana pedas dengan jackpot respin dan putaran gratis."},
-            {id: "vswayschilli", name: "Chilli Heat Megaways", rtp: "96.50%", volatility: "High", desc: "Festival Meksiko dengan fitur respin yang terus berevolusi."},
-            {id: "vs243lions", name: "5 Lions", rtp: "96.50%", volatility: "High", desc: "Singa keberuntungan dengan berbagai pilihan free spins pengali."},
-            {id: "vswayslions", name: "5 Lions Megaways", rtp: "96.50%", volatility: "High", desc: "Jalur Megaways untuk singa emas pembawa berkah."},
-            {id: "vs243lionsgold", name: "5 Lions Gold", rtp: "96.50%", volatility: "High", desc: "Singa emas dengan tambahan fitur jackpot besar."},
-            {id: "vswayssamurai", name: "Rise of Samurai Megaways", rtp: "96.46%", volatility: "High", desc: "Bangkitnya pejuang samurai dengan roda pengali misteri."},
-            {id: "vs40samurai3", name: "Rise of Samurai 3", rtp: "96.57%", volatility: "High", desc: "Samurai kembali dengan wild lengket dan pengganda tersembunyi."},
-            {id: "vs576treasures", name: "Wild Wild Riches", rtp: "96.77%", volatility: "High", desc: "Temukan harta karun Irlandia di ujung pelangi."},
-            {id: "vswayswwriches", name: "Wild Wild Riches Megaways", rtp: "96.02%", volatility: "High", desc: "Harta karun Irlandia kini lebih besar di grid Megaways."},
-            {id: "vs576bananas", name: "Wild Wild Bananas", rtp: "96.10%", volatility: "High", desc: "Kumpulkan pisang dan menangkan hadiah di pulau tropis."},
-            {id: "vs20stickybees", name: "Sticky Bees", rtp: "96.06%", volatility: "High", desc: "Lebah pekerja keras yang meninggalkan jejak super wild."},
-            {id: "vs20mochimon", name: "Mochimon", rtp: "96.50%", volatility: "High", desc: "Makhluk mochi lucu bergaya anime dengan multiplier grid."},
-            {id: "vs20rabbit", name: "Rabbit Garden", rtp: "96.05%", volatility: "High", desc: "Taman kelinci dengan koin yang jatuh dan free spin bertingkat."},
-            {id: "vs20knight", name: "The Knight King", rtp: "96.05%", volatility: "High", desc: "Raja ksatria dengan simbol uang dan tameng pelindung."},
-            {id: "vs20cowboy", name: "Cowboy Coins", rtp: "96.08%", volatility: "High", desc: "Kumpulkan koin dan lencana dalam duel wild west."},
-            {id: "vs20drghero", name: "Dragon Hero", rtp: "96.00%", volatility: "High", desc: "Pahlawan naga dengan super wild mistis yang menyebar."},
-            {id: "vs20goblinheist", name: "Goblin Heist PowerNudge", rtp: "96.47%", volatility: "High", desc: "Goblin nakal dengan fitur PowerNudge di setiap kemenangan."},
-            {id: "vs10adventure", name: "Spirit of Adventure", rtp: "96.60%", volatility: "High", desc: "Petualangan melintasi peta untuk mengumpulkan relik bernilai."},
-            {id: "vs50north", name: "North Guardians", rtp: "96.38%", volatility: "High", desc: "Pelindung utara dengan roda wild misteri bertingkat."},
-            {id: "vs10firestrike2", name: "Fire Strike 2", rtp: "96.50%", volatility: "Medium", desc: "Dapatkan simbol Fire Strike untuk jackpot uang tunai instan."}
-        ];
-
-        // --- 2. DATA BASE GAME PG SOFT ---
-        const pgSoftDatabase = [
-            {id: "98", name: "Mahjong Ways 2", rtp: "96.95%", volatility: "Medium", desc: "Permainan mahjong klasik dengan fitur transformasi simbol liar dan pengali."},
-            {id: "126", name: "Mahjong Ways", rtp: "96.92%", volatility: "Medium", desc: "Slot video 5 gulungan, 4 baris yang menampilkan transformasi simbol liar."},
-            {id: "87", name: "Treasures of Aztec", rtp: "96.71%", volatility: "Medium", desc: "Jelajahi piramida Aztec untuk menemukan harta karun tersembunyi dengan pengali bertambah."},
-            {id: "89", name: "Lucky Neko", rtp: "96.73%", volatility: "Medium", desc: "Kucing keberuntungan membawa rejeki dengan simbol raksasa dan putaran gratis."},
-            {id: "68", name: "Leprechaun Riches", rtp: "97.35%", volatility: "Medium", desc: "Cari emas di ujung pelangi bersama Leprechaun di slot 6 gulungan ini."},
-            {id: "112", name: "Wild Bandito", rtp: "96.73%", volatility: "Medium", desc: "Bandit Meksiko liar yang siap memberikan kemenangan lewat putaran gratis dan pengali yang terus meningkat."},
-            {id: "106", name: "Dreams of Macau", rtp: "96.71%", volatility: "Medium", desc: "Rasakan gemerlap kota kasino dengan putaran gratis dan Sticky Wilds yang menguntungkan."}
-        ];
-
-        // Gabungkan semua database
-        const allGamesDatabase = [...gameDatabase, ...pgSoftDatabase];
-        
-        // Game Andalan Untuk Hero Slider
-        const heroFeaturedGames = [
-            gameDatabase[0], // Starlight Princess
-            gameDatabase[1], // Gates of Olympus
-            gameDatabase[2], // Sweet Bonanza
-            pgSoftDatabase[0] // Mahjong Ways 2
-        ];
-
-        // State untuk tombol View All
-        let isShowingAllPragmatic = false;
-        let isShowingAllPgSoft = false;
-        
-        let currentSlide = 0;
-
-        // --- 3. INISIALISASI HALAMAN ---
-        window.onload = function() {
-            const selectMenu = document.getElementById('gameSelect');
-            
-            // Render list untuk Dropdown Pilihan Game di Game View
-            allGamesDatabase.forEach(game => {
-                const isPragmatic = gameDatabase.some(g => g.id === game.id);
-                const providerName = isPragmatic ? "Pragmatic Play" : "PG Soft";
-                
-                const option = document.createElement("option");
-                option.value = game.id;
-                option.text = `${game.name} (${providerName})`;
-                selectMenu.appendChild(option);
-            });
-
-            // Jalankan Slider dan Katalog untuk masing-masing provider
-            initHeroSlider();
-            renderCatalog(gameDatabase, 'cardsPragmaticContainer', 10); 
-            renderCatalog(pgSoftDatabase, 'cardsPgSoftContainer', 10); 
-            initDragToScroll();
-            
-            // Setup Tombol View All Pragmatic Play
-            const btnPragmatic = document.getElementById('viewAllPragmaticBtn');
-            const containerPragmatic = document.getElementById('cardsPragmaticContainer');
-            btnPragmatic.addEventListener('click', () => {
-                if (!isShowingAllPragmatic) {
-                    renderCatalog(gameDatabase, 'cardsPragmaticContainer', gameDatabase.length); 
-                    containerPragmatic.classList.add('grid-view'); 
-                    btnPragmatic.innerText = "Show Less Games";
-                } else {
-                    renderCatalog(gameDatabase, 'cardsPragmaticContainer', 10); 
-                    containerPragmatic.classList.remove('grid-view'); 
-                    btnPragmatic.innerText = "View All Games";
-                    containerPragmatic.parentElement.scrollIntoView({ behavior: 'smooth' });
-                }
-                isShowingAllPragmatic = !isShowingAllPragmatic;
-            });
-
-            // Setup Tombol View All PG Soft
-            const btnPgSoft = document.getElementById('viewAllPgSoftBtn');
-            const containerPgSoft = document.getElementById('cardsPgSoftContainer');
-            btnPgSoft.addEventListener('click', () => {
-                if (!isShowingAllPgSoft) {
-                    renderCatalog(pgSoftDatabase, 'cardsPgSoftContainer', pgSoftDatabase.length); 
-                    containerPgSoft.classList.add('grid-view'); 
-                    btnPgSoft.innerText = "Show Less Games";
-                } else {
-                    renderCatalog(pgSoftDatabase, 'cardsPgSoftContainer', 10); 
-                    containerPgSoft.classList.remove('grid-view'); 
-                    btnPgSoft.innerText = "View All Games";
-                    containerPgSoft.parentElement.scrollIntoView({ behavior: 'smooth' });
-                }
-                isShowingAllPgSoft = !isShowingAllPgSoft;
-            });
-        };
-
-        // --- 4. FUNGSI HERO SLIDER (BANNER ATAS FULL LAYAR) ---
-        function initHeroSlider() {
-            const slideContainer = document.getElementById('slideContainer');
-            
-            heroFeaturedGames.forEach((game, index) => {
-                const isPragmatic = gameDatabase.some(g => g.id === game.id);
-                const providerName = isPragmatic ? "Pragmatic Play" : "PG Soft";
-                
-                // Cari wallpaper HD menggunakan Bing Proxy
-                const searchQuery = providerName + " " + game.name + " slot wallpaper HD";
-                const proxyUrl = "https://tse2.mm.bing.net/th?q=" + encodeURIComponent(searchQuery) + "&w=1920&h=600&c=7&rs=1&p=0&dpr=1&pid=1.7";
-                
-                const slide = document.createElement('div');
-                slide.className = `hero-slide ${index === 0 ? 'active' : ''}`;
-                slide.style.backgroundImage = `url('${proxyUrl}')`;
-                
-                slide.innerHTML = `
-                    <div class="hero-slide-overlay">
-                        <span class="game-card-badge" style="position:relative; top:0; left:0; width:fit-content; margin-bottom:15px; font-size:14px; padding:6px 12px;">Hot Game 🔥</span>
-                        <h2 class="hero-slide-title">${game.name}</h2>
-                        <p class="hero-slide-desc">${game.desc}</p>
-                        <button class="hero-play-btn" onclick="changeGame('${game.id}')">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                            Play Demo
-                        </button>
-                    </div>
-                `;
-                slideContainer.appendChild(slide);
-            });
-
-            // Logika Auto-Slide setiap 5 detik
-            setInterval(() => {
-                const slides = document.querySelectorAll('.hero-slide');
-                if(slides.length === 0) return;
-                slides[currentSlide].classList.remove('active');
-                currentSlide = (currentSlide + 1) % slides.length;
-                slides[currentSlide].classList.add('active');
-            }, 5000);
-        }
-
-        // --- 5. FUNGSI RENDER KATALOG CARD ---
-        function renderCatalog(database, containerId, limit) {
-            const container = document.getElementById(containerId);
-            container.innerHTML = '';
-            const gamesToRender = database.slice(0, limit);
-
-            gamesToRender.forEach(game => {
-                const card = document.createElement('div');
-                card.className = 'game-card';
-                
-                const isPragmatic = gameDatabase.some(g => g.id === game.id);
-                const providerName = isPragmatic ? "Pragmatic Play" : "PG Soft";
-                
-                // Trik Proxy Bing
-                const searchQuery = providerName + " " + game.name + " slot";
-                const proxyUrl = "https://tse2.mm.bing.net/th?q=" + encodeURIComponent(searchQuery) + "&w=400&h=400&c=7&rs=1&p=0&dpr=1&pid=1.7";
-                const fallbackUrl = `https://placehold.co/400x400/181b21/facc15?font=Montserrat&text=${encodeURIComponent(game.name)}`;
-                
-                card.innerHTML = `
-                    <div class="game-card-thumb">
-                        <img src="${proxyUrl}" alt="${game.name}" onerror="this.onerror=null; this.src='${fallbackUrl}';">
-                        <div class="game-card-badge">18+</div>
-                        
-                        <div class="play-overlay">
-                            <div class="play-btn">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                                Play Demo
-                            </div>
-                        </div>
-                    </div>
-                    <div class="game-card-info">
-                        <h3>${game.name}</h3>
-                        <div class="game-card-tags">
-                            <span class="provider-tag">${providerName}</span>
-                        </div>
-                    </div>
-                `;
-
-                // Event masuk mode game
-                card.addEventListener('click', () => {
-                    changeGame(game.id);
-                });
-
-                container.appendChild(card);
-            });
-        }
-
-        // --- 6. FUNGSI DRAG TO SCROLL (Berlaku untuk semua container) ---
-        function initDragToScroll() {
-            const containers = document.querySelectorAll('.cards-container');
-            
-            containers.forEach(container => {
-                let isDown = false;
-                let startX;
-                let scrollLeft;
-
-                container.addEventListener('mousedown', (e) => {
-                    if(container.classList.contains('grid-view')) return; 
-                    isDown = true;
-                    container.classList.add('active');
-                    startX = e.pageX - container.offsetLeft;
-                    scrollLeft = container.scrollLeft;
-                });
-                
-                container.addEventListener('mouseleave', () => {
-                    isDown = false;
-                    container.classList.remove('active');
-                });
-                
-                container.addEventListener('mouseup', () => {
-                    isDown = false;
-                    container.classList.remove('active');
-                });
-                
-                container.addEventListener('mousemove', (e) => {
-                    if (!isDown || container.classList.contains('grid-view')) return;
-                    e.preventDefault();
-                    const x = e.pageX - container.offsetLeft;
-                    const walk = (x - startX) * 2; 
-                    container.scrollLeft = scrollLeft - walk;
-                });
-            });
-        }
-
-        // --- 7. FUNGSI MEMULAI GAME (MASUK RUANGAN) ---
-        function changeGame(gameId) {
-            // Sembunyikan Landing, Tampilkan Area Game
-            document.getElementById('landingView').style.display = 'none';
-            document.getElementById('gameView').style.display = 'flex';
-
-            let isPragmatic = gameDatabase.some(g => g.id === gameId);
-            let selectedGame = isPragmatic ? gameDatabase.find(g => g.id === gameId) : pgSoftDatabase.find(g => g.id === gameId);
-            let provider = isPragmatic ? "Pragmatic Play" : "PG Soft";
-            
-            // Ambil mata uang yang dipilih dari dropdown
-            let selectedCurrency = document.getElementById('currencySelect').value;
-            
-            // Logika Pemetaan Bahasa Berdasarkan Mata Uang
-            let langCode = 'en'; // Bahasa bawaan (Inggris)
-            if (selectedCurrency === 'IDR') {
-                langCode = 'id'; // Indonesia
-            } else if (selectedCurrency === 'THB') {
-                langCode = 'th'; // Thailand
-            } else if (selectedCurrency === 'MYR' || selectedCurrency === 'USD' || selectedCurrency === 'EUR') {
-                langCode = 'en'; // Inggris (Internasional)
-            }
-            
-            if (selectedGame) {
-                // Set Dropdown option
-                document.getElementById('gameSelect').value = selectedGame.id;
-
-                const iframe = document.getElementById('gameFrame');
-                iframe.src = "about:blank"; 
-                
-                setTimeout(() => {
-                    // Cek Tautan Iframe Berdasarkan Provider dan inject Mata Uang serta Bahasa otomatis
-                    if (provider === "Pragmatic Play") {
-                        const baseUrl = "https://demogamesfree.pragmaticplay.net/gs2c/openGame.do?gameSymbol=";
-                        // Parameter lang diubah otomatis berdasarkan mata uang
-                        const params = `&websiteUrl=https%3A%2F%2Fdemogamesfree.pragmaticplay.net&jurisdiction=99&lobby_url=https%3A%2F%2Fwww.pragmaticplay.com%2Fen%2F&lang=${langCode.toUpperCase()}&cur=${selectedCurrency}`;
-                        iframe.src = baseUrl + selectedGame.id + params;
-                    } else if (provider === "PG Soft") {
-                        // PG Soft diinjeksi dengan parameter currency dan lang otomatis
-                        iframe.src = `https://m.pgsoft-games.com/play.html?game_id=${selectedGame.id}&lang=${langCode.toLowerCase()}&__refer=m.pgsoft-games.com&currency=${selectedCurrency}`;
-                    }
-                }, 100);
-
-                // Update Detail SEO di bawah Iframe
-                document.getElementById('displayTitle').innerText = selectedGame.name;
-                document.getElementById('displayMeta').innerHTML = `${provider} &bull; RTP ${selectedGame.rtp} &bull; ${selectedGame.volatility} Volatility`;
-                document.getElementById('descTitle').innerText = `Tentang Slot Demo ${selectedGame.name}`;
-                document.getElementById('descText').innerText = `Mainkan slot demo ${selectedGame.name} secara gratis. Game ini memiliki RTP sebesar ${selectedGame.rtp} dengan tingkat volatilitas ${selectedGame.volatility}. ${selectedGame.desc}`;
-                
-                // Scroll layarnya ke atas
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-        }
-
-        // --- 8. FUNGSI KEMBALI KE MENU UTAMA ---
-        function showLanding() {
-            document.getElementById('gameView').style.display = 'none';
-            document.getElementById('landingView').style.display = 'block';
-            document.getElementById('gameFrame').src = "about:blank"; // Matikan suara iframe
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // --- 9. FUNGSI UTILITAS TAMBAHAN ---
-        function reloadGame() {
-            var iframe = document.getElementById('gameFrame');
-            var currentSrc = iframe.src;
-            iframe.src = currentSrc; 
-        }
-
-        function toggleFullscreen() {
-            var elem = document.getElementById("gameContainer");
-            if (!document.fullscreenElement) {
-                elem.requestFullscreen().catch(err => {
-                    alert(`Error attempting to enable full-screen mode: ${err.message}`);
-                });
-            } else {
-                document.exitFullscreen();
-            }
-        }
-    </script>
+    <script src="assets/js/global-footer.js"></script>
+    <script src="assets/js/main.js"></script>
+    
 </body>
 </html>

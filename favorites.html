@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    
+    <title>My Favorites | Demo Slot Pro</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Saira:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="icon.svg" type="image/svg+xml">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Demo Slot Pro",
+      "alternateName": "Pragmatic Play Slot Demo",
+      "url": "https://yourdomain.com/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://yourdomain.com/search?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Pragmatic Play Slot Demo Collection",
+      "operatingSystem": "WebBrowser",
+      "applicationCategory": "GameApplication",
+      "genre": "Slot Online",
+      "description": "Platform profesional untuk bermain Pragmatic Play Slot Demo secara gratis.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Pragmatic Play"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "bestRating": "5",
+        "ratingCount": "3450"
+      }
+    }
+    </script>
+
+    <style>
+        /* Penyesuaian khusus untuk halaman Favorites */
+        .favorites-wrapper {
+            margin-top: var(--header-height);
+            padding: 4rem 3rem;
+            min-height: 70vh;
+            background-color: var(--bg-dark);
+            width: 100%;
+        }
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 5rem 2rem;
+            color: var(--text-muted);
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px dashed var(--border-color);
+            margin-top: 2rem;
+        }
+        .empty-state svg {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 20px;
+            color: var(--border-color);
+        }
+        .empty-state h3 {
+            color: var(--text-main);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            font-family: 'Inter', sans-serif;
+        }
+        .back-home-btn {
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: var(--accent);
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .back-home-btn:hover {
+            background: var(--accent-hover);
+            transform: scale(1.05);
+        }
+        @media (max-width: 860px) {
+            .favorites-wrapper { padding: 3rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a class="logo" href="index.html"><span class="demo">DEMO</span><span class="slot">SLOT</span><span class="pro">PRO</span></a>
+        
+        <div class="header-right">
+            <div class="search-box">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" id="searchInput" placeholder="Search games...">
+                <div class="search-results" id="searchResults"></div>
+            </div>
+            <a href="favorites.html" class="header-heart" title="Game Favorit Saya" style="color: var(--accent);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="var(--accent)" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            </a>
+        </div>
+    </header>
+
+    <div class="favorites-wrapper">
+        <div class="catalog-header" style="padding-left: 0; padding-right: 0;">
+            <h2>My Favorite Games</h2>
+            <button class="view-all-btn" id="clearFavoritesBtn" onclick="clearAllFavorites()" style="display: none;">Clear All Favorites</button>
+        </div>
+
+        <div id="emptyState" class="empty-state" style="display: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+            <h3>No favorites yet</h3>
+            <p>You haven't added any games to your favorites list.</p>
+            <a href="index.html" class="back-home-btn">Explore Games</a>
+        </div>
+
+        <div class="cards-container grid-view" id="favoritesGrid" style="padding-left: 0; padding-right: 0;">
+            </div>
+    </div>
+
+    <div id="global-footer-placeholder"></div>
+    <script src="assets/js/global-footer.js"></script>
+
+    <script>
+        function slugify(text) {
+            return text.toString().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+        }
+
+        // --- DATABASE GAME (Dicopy dari main.js agar bisa berjalan mandiri) ---
+        const gameDatabase = [
+            {id: "vs20starlight", name: "Starlight Princess", rtp: "96.50%", volatility: "High", desc: "Putri bintang dengan tongkat ajaib pengali kemenangan."},
+            {id: "vs20starlightx", name: "Starlight Princess 1000", rtp: "96.50%", volatility: "Very High", desc: "Kekuatan putri ditingkatkan hingga x1000."},
+            { "id": "vs20olympgate", "name": "Gates of Olympus", "rtp": "96.50%", "volatility": "High", "desc": "Sang Kakek Zeus menunggu dengan petir x500." },
+            { "id": "vs20olympx", "name": "Gates of Olympus 1000", "rtp": "96.50%", "volatility": "Very High", "desc": "Versi upgrade Zeus dengan potensi max win lebih besar." },
+            { "id": "vs20fruitsw", "name": "Sweet Bonanza", "rtp": "96.48%", "volatility": "Medium", "desc": "Dunia permen penuh warna dengan fitur tumbling reels." },
+            { "id": "vs20sbxmas", "name": "Sweet Bonanza Xmas", "rtp": "96.48%", "volatility": "Medium", "desc": "Versi natal dari Sweet Bonanza dengan salju dingin." },
+            { "id": "vs20sugarrush", "name": "Sugar Rush", "rtp": "96.50%", "volatility": "High", "desc": "Mesin slot grid 7x7 dengan multiplier spot yang lengket." },
+            { "id": "vs20sugarrushx", "name": "Sugar Rush 1000", "rtp": "96.53%", "volatility": "Very High", "desc": "Versi ekstrem dari Sugar Rush dengan multiplier hingga 1024x." },
+            { "id": "vs20gatotkaca", "name": "Gates of Gatot Kaca", "rtp": "96.50%", "volatility": "High", "desc": "Pahlawan super Indonesia dengan kekuatan mitologi." },
+            { "id": "vs20gatotkacax", "name": "Gates of Gatot Kaca 1000", "rtp": "96.50%", "volatility": "Very High", "desc": "Kekuatan maksimal pahlawan super Indonesia dengan pengali x1000." },
+            { "id": "vs15zeushades", "name": "Zeus vs Hades - Gods of War", "rtp": "96.05%", "volatility": "Very High", "desc": "Pilih sisi Anda dalam pertempuran epik antara Zeus dan Hades." },
+            { "id": "vs20athena", "name": "Wisdom of Athena", "rtp": "96.07%", "volatility": "High", "desc": "Kebijaksanaan dewi Athena dengan grid dinamis dan multiplier." },
+            { "id": "vs20forge", "name": "Forge of Olympus", "rtp": "96.25%", "volatility": "High", "desc": "Tempa kemenangan Anda bersama dewa pandai besi Olympus." },
+            { "id": "vs5aztecgems", "name": "Aztec Gems", "rtp": "96.52%", "volatility": "Medium", "desc": "Slot klasik 3x3 dengan tema hutan Aztec." },
+            { "id": "vs40wildwest", "name": "Wild West Gold", "rtp": "96.51%", "volatility": "High", "desc": "Koboi barat liar dengan sticky wild di free spin." },
+            { "id": "vs10bbsplash", "name": "Big Bass Splash", "rtp": "96.71%", "volatility": "High", "desc": "Mancing mania dengan fitur pengumpul uang ikan." },
+            { "id": "vs20fruitparty", "name": "Fruit Party", "rtp": "96.47%", "volatility": "High", "desc": "Pesta buah dengan pengganda kluster acak." },
+            { "id": "vs20goldfever", "name": "Gems Bonanza", "rtp": "96.51%", "volatility": "High", "desc": "Kumpulkan permata untuk memicu Gold Fever." },
+            { "id": "vs20midas", "name": "The Hand of Midas", "rtp": "96.54%", "volatility": "High", "desc": "Sentuhan emas Raja Midas dengan sticky wilds." },
+            { "id": "vswaysmadame", "name": "Madame Destiny Megaways", "rtp": "96.56%", "volatility": "High", "desc": "Ramalan nasib dengan roda keberuntungan." },
+            { "id": "vs20cleocatra", "name": "Cleocatra", "rtp": "96.20%", "volatility": "High", "desc": "Kucing Mesir kuno dengan wild lengket." },
+            { "id": "vs25mustang", "name": "Mustang Gold", "rtp": "96.53%", "volatility": "Medium-High", "desc": "Kuda liar dengan fitur Money Collect." },
+            { "id": "vs25wolfgold", "name": "Wolf Gold", "rtp": "96.01%", "volatility": "Medium", "desc": "Serigala emas dengan fitur Jackpot Respin." },
+            { "id": "vs20mochimon", "name": "Mochimon", "rtp": "96.50%", "volatility": "High", "desc": "Makhluk mochi lucu dengan multiplier grid." },
+            { "id": "vs20rabbit", "name": "Rabbit Garden", "rtp": "96.05%", "volatility": "High", "desc": "Taman kelinci dengan fitur koin jatuh." },
+            { "id": "vs20knight", "name": "The Knight King", "rtp": "96.05%", "volatility": "High", "desc": "Raja ksatria dengan simbol uang mistis." }
+            // Note: Anda bisa menyalin sisa database dari main.js ke sini jika ingin seluruh pencariannya bekerja 100% sama dengan beranda, 
+            // namun kode di atas sudah cukup untuk merender game populer yang disukai.
+        ];
+
+        let favoriteIds = JSON.parse(localStorage.getItem('favoriteGames')) || [];
+
+        window.onload = function() {
+            renderFavoritesPage();
+            initSearch();
+        };
+
+        function renderFavoritesPage() {
+            const container = document.getElementById('favoritesGrid');
+            const emptyState = document.getElementById('emptyState');
+            const clearBtn = document.getElementById('clearFavoritesBtn');
+            
+            container.innerHTML = '';
+
+            if (favoriteIds.length === 0) {
+                emptyState.style.display = 'flex';
+                clearBtn.style.display = 'none';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+            clearBtn.style.display = 'block';
+
+            // Ambil detail game berdasarkan ID yang ada di localStorage
+            const favGames = favoriteIds.map(id => gameDatabase.find(g => g.id === id)).filter(g => g);
+
+            favGames.forEach(game => {
+                const card = document.createElement('a');
+                card.className = 'game-card';
+                card.href = 'game/' + slugify(game.name) + '.html';
+                
+                const isPragmatic = gameDatabase.some(g => g.id === game.id);
+                const providerName = isPragmatic ? "Pragmatic Play" : "PG Soft";
+                
+                const searchQuery = providerName + " " + game.name + " slot poster";
+                const proxyUrl = "https://tse2.mm.bing.net/th?q=" + encodeURIComponent(searchQuery) + "&w=400&h=600&c=7&rs=1&p=0&dpr=1&pid=1.7";
+                const fallbackUrl = `https://placehold.co/400x600/141519/e50914?font=Montserrat&text=${encodeURIComponent(game.name)}`;
+                
+                const randomRating = (Math.random() * (9.5 - 6.0) + 6.0).toFixed(1);
+
+                // Di halaman ini, semua icon otomatis "loved"
+                card.innerHTML = `
+                    <div class="game-card-thumb">
+                        <div class="top-badges">
+                            <div class="heart-icon loved" data-id="${game.id}" title="Remove from Favorites">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                            </div>
+                            <div class="rating-badge">★ ${randomRating}</div>
+                        </div>
+                        <img src="${proxyUrl}" alt="${game.name}" onerror="this.onerror=null; this.src='${fallbackUrl}';">
+                    </div>
+                    <div class="game-card-info">
+                        <h3>${game.name}</h3>
+                        <div class="provider-tag">2026 • ${providerName}</div>
+                    </div>
+                `;
+
+                // Handle saat klik tombol love (untuk menghapus dari daftar)
+                const heartBtn = card.querySelector('.heart-icon');
+                heartBtn.addEventListener('click', (e) => {
+                    e.preventDefault(); 
+                    e.stopPropagation(); 
+                    
+                    // Hapus dari array
+                    favoriteIds = favoriteIds.filter(id => id !== game.id);
+                    localStorage.setItem('favoriteGames', JSON.stringify(favoriteIds));
+                    
+                    // Render ulang halaman
+                    renderFavoritesPage();
+                });
+
+                container.appendChild(card);
+            });
+        }
+
+        function clearAllFavorites() {
+            if(confirm("Are you sure you want to remove all favorite games?")) {
+                localStorage.removeItem('favoriteGames');
+                favoriteIds = [];
+                renderFavoritesPage();
+            }
+        }
+
+        // FITUR PENCARIAN (Sama persis dengan main.js agar header tetap fungsional)
+        function initSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const searchResults = document.getElementById('searchResults');
+
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                searchResults.innerHTML = '';
+
+                if (query.length < 2) {
+                    searchResults.style.display = 'none';
+                    return;
+                }
+
+                const results = gameDatabase.filter(g => g.name.toLowerCase().includes(query)).slice(0, 10);
+
+                if (results.length > 0) {
+                    searchResults.style.display = 'flex';
+                    results.forEach(game => {
+                        const isPragmatic = gameDatabase.some(g => g.id === game.id);
+                        const providerName = isPragmatic ? "Pragmatic Play" : "PG Soft";
+                        const searchQuery = providerName + " " + game.name + " slot poster";
+                        const proxyUrl = "https://tse2.mm.bing.net/th?q=" + encodeURIComponent(searchQuery) + "&w=100&h=100&c=7&rs=1&p=0&dpr=1&pid=1.7";
+
+                        const a = document.createElement('a');
+                        a.className = 'search-result-item';
+                        a.href = 'game/' + slugify(game.name) + '.html';
+                        
+                        a.innerHTML = `
+                            <img src="${proxyUrl}" alt="${game.name}">
+                            <div class="info">
+                                <span class="title">${game.name}</span>
+                                <span class="provider">${providerName}</span>
+                            </div>
+                        `;
+                        searchResults.appendChild(a);
+                    });
+                } else {
+                    searchResults.style.display = 'flex';
+                    searchResults.innerHTML = '<div class="search-result-item"><span class="title" style="color:var(--text-muted)">Game tidak ditemukan</span></div>';
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.search-box')) {
+                    searchResults.style.display = 'none';
+                }
+            });
+            
+            searchInput.addEventListener('focus', () => {
+                if(searchInput.value.trim().length >= 2 && searchResults.innerHTML !== '') {
+                    searchResults.style.display = 'flex';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

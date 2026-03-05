@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /*?search=
+Disallow: /*&search=
+Disallow: /*?lang=
+Disallow: /*&lang=
+Sitemap: http://127.0.0.1:5500/sitemap.xml

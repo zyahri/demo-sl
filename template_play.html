@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    
+    <title>Free {{GAME_NAME}} Demo | {{SITE_TITLE}}</title>
+    <meta name="description" content="{{GAME_DESC}} Play the {{GAME_NAME}} demo slot from {{PROVIDER}} with {{RTP}} RTP for free with no deposit.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{CANONICAL_URL}}">
+    
+    <script type="application/ld+json">
+        {{SCHEMA_JSON}}
+    </script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Saira:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="icon" href="../icon.svg" type="image/svg+xml">
+    
+    <style>
+        :root {
+            --accent: {{ACCENT_COLOR}};
+            --accent-hover: {{ACCENT_COLOR}};
+        }
+    </style>
+    
+    {{ANALYTICS}}
+</head>
+<body>
+
+    <header>
+        <a class="logo" href="../index.html"><span class="demo">DEMO</span><span class="slot">SLOT</span><span class="pro">PRO</span></a>
+    </header>
+
+    <main class="game-wrapper">
+        
+        <div class="theater-stage" id="gameContainer">
+            <div id="playGate" class="play-gate" style="background-image: url('{{BG_IMAGE_URL}}');">
+                <div class="gate-overlay">
+                    <img src="{{POSTER_URL}}" style="width: 150px; aspect-ratio: 2/3; object-fit: cover; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); border: 1px solid var(--border-color);">
+                    <a href="{{BACKLINK_URL}}" class="gate-btn btn-real" target="_blank" rel="dofollow">▶ PLAY FOR REAL MONEY</a>
+                    <button onclick="startDemo('{{IFRAME_URL}}')" class="gate-btn btn-demo">▶ PLAY FREE DEMO</button>
+                </div>
+            </div>
+            <iframe id="gameFrame" src="about:blank" allowfullscreen></iframe>
+        </div>
+
+        <div class="control-bar">
+            <div class="game-info-container">
+                <div class="game-title"><h1>{{GAME_NAME}}</h1></div>
+                <div class="game-meta">{{PROVIDER}} &bull; RTP {{RTP}} &bull; {{VOLATILITY}} Volatility</div>
+            </div>
+            <div class="actions">
+                <button class="btn btn-primary" onclick="reloadIframe()">▶ Reload</button>
+                <button class="btn" onclick="toggleFullscreen()">🗖 Full Screen</button>
+            </div>
+        </div>
+
+        <section class="content-area">
+            <h2>{{GAME_NAME}} Game Information</h2>
+            <p>{{GAME_DESC}}</p>
+            <p style="margin-top: 15px;">Play this free demo version to discover winning patterns. Once you are confident and want to experience real winnings, visit <a href="{{BACKLINK_URL}}" target="_blank" rel="dofollow">OUR RECOMMENDED SITE</a> immediately.</p>
+        </section>
+
+        <section class="catalog-section">
+            <div class="catalog-header">
+                <h2>Other Similar Games</h2>
+            </div>
+            <div class="cards-container" id="cardsSlider">
+                {{RELATED_GAMES}}
+            </div>
+        </section>
+
+    </main>
+    <div id="global-footer-placeholder"></div>
+
+    <script src="../assets/js/global-footer.js"></script>
+    <script src="../assets/js/play_core.js"></script>
+</body>
+</html>
